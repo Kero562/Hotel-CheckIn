@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -9,31 +10,86 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller">
    <children>
       <HBox prefHeight="402.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="545.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER" prefHeight="400.0" prefWidth="545.0" styleClass="leftVBox" stylesheets="@style.css" HBox.hgrow="ALWAYS">
                <children>
-                  <ImageView fitHeight="200.0" fitWidth="194.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                  <ImageView fitHeight="200.0" fitWidth="194.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" styleClass="imageView" VBox.vgrow="ALWAYS">
                      <image>
                         <Image url="@images/dragon-logo.png" />
                      </image>
                      <VBox.margin>
-                        <Insets top="5.0" />
+                        <Insets bottom="25.0" />
                      </VBox.margin>
                   </ImageView>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="4 Dragons Resort" textAlignment="CENTER" wrappingWidth="222.46875" VBox.vgrow="ALWAYS">
-                     <font>
-                        <Font name="MV Boli" size="25.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="45.0" />
-                     </VBox.margin>
-                  </Text>
+                  <HBox alignment="CENTER" maxHeight="49.0" maxWidth="410.0" prefHeight="49.0" prefWidth="389.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="46.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                           <image>
+                              <Image url="@images/log-fire.gif" />
+                           </image>
+                           <HBox.margin>
+                              <Insets bottom="15.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Text fx:id="dragonsText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="dragons" textAlignment="CENTER" wrappingWidth="250.46875" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Euphorigenic" size="42.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="46.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                           <image>
+                              <Image url="@images/log-fire.gif" />
+                           </image>
+                           <HBox.margin>
+                              <Insets bottom="15.0" left="3.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="400.0" prefWidth="565.0" HBox.hgrow="ALWAYS" />
+            <VBox alignment="CENTER" prefHeight="400.0" prefWidth="565.0" styleClass="secondVBox" stylesheets="@style.css" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="86.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@images/891399.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets left="8.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <HBox alignment="CENTER" maxHeight="50.0" prefHeight="140.0" prefWidth="423.0" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                     <children>
+                        <Text fill="#00d7f8" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="loginParams" text="Last Name" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="25.0" />
+                           </HBox.margin>
+                        </Text>
+                        <TextField maxWidth="125.0" prefHeight="25.0" prefWidth="238.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" maxHeight="50.0" prefHeight="140.0" prefWidth="423.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Text fill="#00d7f8" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="loginParams" text="Booking ID" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets right="25.0" />
+                           </HBox.margin>
+                        </Text>
+                        <TextField maxWidth="125.0" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="-3.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </HBox>
    </children>

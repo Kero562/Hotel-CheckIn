@@ -1,0 +1,19 @@
+.leftVBox {
+    -fx-background-color: linear-gradient(to left, rgb(105, 15, 4), black);
+}
+
+.imageView{
+    -fx-effect: dropshadow(gaussian, rgba(70, 34, 4, 0.473), 10, 10, 0, 0);
+}
+
+.dragons{
+    
+}
+
+.secondVBox{
+    -fx-background-color: linear-gradient(to right, rgb(105, 15, 4), black);
+}
+
+.loginParams{
+    -fx-font-weight: bold;
+}
