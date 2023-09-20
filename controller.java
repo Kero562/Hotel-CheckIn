@@ -3,13 +3,15 @@ import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.util.Duration;
 
 public class controller implements Initializable {
@@ -26,9 +28,14 @@ public class controller implements Initializable {
     @FXML
     private Button checkInButton;
 
+    @FXML
+    private Pane myPane;
+
+    DraggableMaker draggableMaker = new DraggableMaker();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    //Writing animation
+        //Writing animation
 
         String textToAnimate = "4 Dragons Resort";
 
@@ -44,7 +51,8 @@ public class controller implements Initializable {
         }
 
         timeline.play();
-    //
+        //
+
         //Remove bold from prompt texts
         PseudoClass empty = PseudoClass.getPseudoClass("empty");
         textField1.pseudoClassStateChanged(empty, true);
@@ -58,6 +66,8 @@ public class controller implements Initializable {
         });
         //
 
+        //Make the pane as big as the screen
+
         //Booking ID numbers only
         textField2.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
@@ -65,5 +75,16 @@ public class controller implements Initializable {
                 textField2.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
+        
+        
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        myPane.setMinWidth(bounds.getWidth());
+        myPane.setMinHeight(bounds.getHeight());
+
+        myPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
+        
+        draggableMaker.makeDraggable(myPane);
     }
 }

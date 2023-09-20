@@ -6,104 +6,108 @@
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller">
-   <children>
-      <HBox prefHeight="402.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+<BorderPane fx:id="myPane" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller">
+   <center>
+      <VBox fx:id="VBoxFrame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="833.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" prefHeight="400.0" prefWidth="545.0" styleClass="leftVBox" stylesheets="@style.css" HBox.hgrow="ALWAYS">
+            <HBox prefHeight="402.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
-                  <ImageView fitHeight="200.0" fitWidth="194.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" styleClass="imageView" VBox.vgrow="ALWAYS">
-                     <image>
-                        <Image url="@images/dragon-logo.png" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <HBox alignment="CENTER" maxHeight="49.0" maxWidth="410.0" prefHeight="49.0" prefWidth="389.0" VBox.vgrow="ALWAYS">
+                  <VBox alignment="CENTER" prefHeight="400.0" prefWidth="545.0" styleClass="leftVBox" stylesheets="@style.css" HBox.hgrow="ALWAYS">
                      <children>
-                        <ImageView fitHeight="46.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                        <ImageView fitHeight="200.0" fitWidth="194.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" styleClass="imageView" VBox.vgrow="ALWAYS">
                            <image>
-                              <Image url="@images/log-fire.gif" />
+                              <Image url="@images/dragon-logo.png" />
                            </image>
-                           <HBox.margin>
-                              <Insets bottom="15.0" />
-                           </HBox.margin>
+                           <VBox.margin>
+                              <Insets bottom="25.0" />
+                           </VBox.margin>
                         </ImageView>
-                        <Text fx:id="dragonsText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="dragons" textAlignment="CENTER" wrappingWidth="250.46875" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Euphorigenic" size="42.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="46.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER" maxHeight="49.0" maxWidth="410.0" prefHeight="49.0" prefWidth="389.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <ImageView fitHeight="46.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                 <image>
+                                    <Image url="@images/log-fire.gif" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets bottom="15.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Text fx:id="dragonsText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="dragons" textAlignment="CENTER" wrappingWidth="250.46875" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Euphorigenic" size="42.0" />
+                                 </font>
+                              </Text>
+                              <ImageView fitHeight="46.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                 <image>
+                                    <Image url="@images/log-fire.gif" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets bottom="15.0" left="3.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="400.0" prefWidth="565.0" styleClass="secondVBox" stylesheets="@style.css" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="86.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                            <image>
-                              <Image url="@images/log-fire.gif" />
+                              <Image url="@images/891399.png" />
                            </image>
-                           <HBox.margin>
-                              <Insets bottom="15.0" left="3.0" />
-                           </HBox.margin>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                         </ImageView>
+                        <HBox alignment="CENTER" maxHeight="50.0" prefHeight="140.0" prefWidth="423.0" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                           <children>
+                              <TextField fx:id="textField1" alignment="CENTER" maxWidth="178.0" prefHeight="36.0" prefWidth="178.0" promptText="Last Name" styleClass="textField" HBox.hgrow="ALWAYS">
+                                 <effect>
+                                    <Bloom />
+                                 </effect>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="-50.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" maxHeight="50.0" prefHeight="140.0" prefWidth="423.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <TextField fx:id="textField2" alignment="CENTER" maxWidth="179.0" prefHeight="36.0" prefWidth="179.0" promptText="Booking ID" styleClass="textField" HBox.hgrow="ALWAYS">
+                                 <effect>
+                                    <Bloom />
+                                 </effect>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="-50.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <Button fx:id="checkInButton" alignment="CENTER" mnemonicParsing="false" prefHeight="33.0" prefWidth="104.0" styleClass="btn" text="Check-In" textOverrun="CENTER_ELLIPSIS" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets top="70.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="400.0" prefWidth="565.0" styleClass="secondVBox" stylesheets="@style.css" HBox.hgrow="ALWAYS">
-               <children>
-                  <ImageView fitHeight="86.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
-                     <image>
-                        <Image url="@images/891399.png" />
-                     </image>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </ImageView>
-                  <HBox alignment="CENTER" maxHeight="50.0" prefHeight="140.0" prefWidth="423.0" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
-                     <children>
-                        <TextField fx:id="textField1" alignment="CENTER" maxWidth="178.0" prefHeight="36.0" prefWidth="178.0" promptText="Last Name" styleClass="textField" HBox.hgrow="ALWAYS">
-                           <effect>
-                              <Bloom />
-                           </effect>
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets bottom="-50.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" maxHeight="50.0" prefHeight="140.0" prefWidth="423.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <TextField fx:id="textField2" alignment="CENTER" maxWidth="179.0" prefHeight="36.0" prefWidth="179.0" promptText="Booking ID" styleClass="textField" HBox.hgrow="ALWAYS">
-                           <effect>
-                              <Bloom />
-                           </effect>
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets bottom="-50.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <Button fx:id="checkInButton" alignment="CENTER" mnemonicParsing="false" prefHeight="33.0" prefWidth="104.0" styleClass="btn" text="Check-In" textOverrun="CENTER_ELLIPSIS" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets top="70.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
+            </HBox>
          </children>
-      </HBox>
-   </children>
-</VBox>
+      </VBox>
+   </center>
+</BorderPane>
