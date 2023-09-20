@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -14,6 +15,10 @@ public class Main extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
             Scene scene = new Scene (root);
             stage.setScene(scene);
+            //add CSS (extra - just in case)
+            String css = this.getClass().getResource("style.css").toExternalForm();
+            scene.getStylesheets().add(css);
+            //
             //unresizable
             stage.setResizable(false);
             //

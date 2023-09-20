@@ -6,14 +6,28 @@
     -fx-effect: dropshadow(gaussian, rgba(70, 34, 4, 0.473), 10, 10, 0, 0);
 }
 
-.dragons{
-    
-}
-
 .secondVBox{
     -fx-background-color: linear-gradient(to right, rgb(105, 15, 4), black);
 }
 
-.loginParams{
+.textField{
+    -fx-background-color: transparent;
+    -fx-border-color: rgb(8, 180, 180);
+    -fx-border-width: 0 0 1 0;
     -fx-font-weight: bold;
+    -fx-text-fill: rgb(240, 137, 2);
+    -fx-font-size: 16px;
+}
+
+.textField:empty {
+    -fx-font-weight: normal;
+}
+
+.btn {
+    -fx-text-fill: white;
+    -fx-background-radius: 50px;
+    -fx-background-color: #3653F8;
+    -fx-border: none;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
 }
