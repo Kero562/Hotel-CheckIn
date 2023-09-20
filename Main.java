@@ -26,6 +26,10 @@ public class Main extends Application {
             scene.setFill(Color.TRANSPARENT);
             stage.initStyle(StageStyle.TRANSPARENT);
             //
+
+            //remove focus when the program starts
+            root.requestFocus();
+            //
             stage.show();
         } catch (Exception e)
         {
