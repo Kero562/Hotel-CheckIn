@@ -76,15 +76,16 @@ public class controller implements Initializable {
             }
         });
         
-        
+        //make transparent pane fill the screen for dragging
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
 
         myPane.setMinWidth(bounds.getWidth());
         myPane.setMinHeight(bounds.getHeight());
 
-        myPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
+        myPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
         
         draggableMaker.makeDraggable(myPane);
+        //
     }
 }
