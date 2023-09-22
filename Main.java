@@ -11,13 +11,16 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root = loader.load();
             Scene scene = new Scene (root);
             stage.setScene(scene);
+
             //add CSS (extra - just in case)
             String css = this.getClass().getResource("style.css").toExternalForm();
             scene.getStylesheets().add(css);
             //
+
             //unresizable
             stage.setResizable(false);
             //
@@ -30,6 +33,8 @@ public class Main extends Application {
             //remove focus when the program starts
             root.requestFocus();
             //
+
+
             stage.show();
         } catch (Exception e)
         {

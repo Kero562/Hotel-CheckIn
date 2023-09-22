@@ -31,3 +31,12 @@
     -fx-font-weight: bold;
     -fx-font-size: 14px;
 }
+
+.exitBtn {
+    -fx-background-radius: 60px;
+    -fx-background-color: transparent;
+}
+
+.exitHover {
+    -fx-background-color: rgba(76, 228, 203, 0.479);
+}

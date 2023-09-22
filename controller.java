@@ -3,15 +3,20 @@ import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class controller implements Initializable {
@@ -33,6 +38,15 @@ public class controller implements Initializable {
 
     DraggableMaker draggableMaker = new DraggableMaker();
 
+    @FXML
+    private Button exitBtn;
+
+    @FXML
+    private HBox upperBox;
+
+    @FXML
+    private Button minimizeBtn;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Writing animation
@@ -53,7 +67,7 @@ public class controller implements Initializable {
         timeline.play();
         //
 
-        //Remove bold from prompt texts
+        //Remove bold (and any style applied to text) from prompt texts - Check CSS empty subclass
         PseudoClass empty = PseudoClass.getPseudoClass("empty");
         textField1.pseudoClassStateChanged(empty, true);
         textField1.textProperty().addListener((obs, oldText, newText) -> {
@@ -66,9 +80,7 @@ public class controller implements Initializable {
         });
         //
 
-        //Make the pane as big as the screen
-
-        //Booking ID numbers only
+        //Making Booking ID textfield numbers only
         textField2.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 // If the new input is not a digit, replace it with an empty string
@@ -83,9 +95,81 @@ public class controller implements Initializable {
         myPane.setMinWidth(bounds.getWidth());
         myPane.setMinHeight(bounds.getHeight());
 
-        myPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
+        myPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
         
         draggableMaker.makeDraggable(myPane);
         //
+
+        //Exit button
+        ImageView icon = new ImageView("/images/cancel.png");
+        icon.setFitHeight(30);
+        icon.setFitHeight(30);
+        icon.setPreserveRatio(true);
+        exitBtn.getStyleClass().add("exitBtn");
+        exitBtn.setGraphic(icon);
+        //
+
+        //Minimize Button
+        ImageView icon2 = new ImageView("/images/min.png");
+        icon2.setFitHeight(24);
+        icon2.setFitHeight(24);
+        icon2.setPreserveRatio(true);
+        minimizeBtn.getStyleClass().add("exitBtn");
+        minimizeBtn.setGraphic(icon2);
+
+        //Take focus away from anything focusable when clicked away (textField1 here is used as focus point but anything else can be used too)
+        Platform.runLater(() -> {
+            myPane.getScene().setOnMousePressed(event -> {
+            if (!textField1.equals(event.getSource()))
+            {
+                textField1.getParent().requestFocus();
+            }
+        });
+        });
+        //
+    }
+
+    public void hoverEffectOn(MouseEvent event)
+    {
+        Button sourceBtn = (Button) event.getSource();
+
+        if (sourceBtn == exitBtn)
+        {
+            exitBtn.setStyle(null);
+            exitBtn.getStyleClass().add("exitHover");
+        } else if (sourceBtn == minimizeBtn)
+        {
+            minimizeBtn.setStyle(null);
+            minimizeBtn.getStyleClass().add("exitHover");
+        }
+    }
+
+    public void hoverEffectOff(MouseEvent event)
+    {
+        Button sourceBtn = (Button) event.getSource();
+
+        if (sourceBtn == exitBtn)
+        {
+            exitBtn.getStyleClass().remove("exitHover");
+            exitBtn.getStyleClass().add("exitBtn");
+        } else if (sourceBtn == minimizeBtn)
+        {
+            minimizeBtn.getStyleClass().remove("exitHover");
+            minimizeBtn.getStyleClass().add("exitBtn");
+        }
+
+    }
+
+    public void exitBtn()
+    {
+        Platform.exit();
+    }
+
+    public void minimizeFun()
+    {
+        Platform.runLater(() -> {
+            Stage stage = (Stage) minimizeBtn.getScene().getWindow();
+            stage.setIconified(true);
+        });
     }
 }

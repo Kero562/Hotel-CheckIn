@@ -16,7 +16,20 @@
    <center>
       <VBox fx:id="VBoxFrame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="833.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="402.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+            <HBox fx:id="upperBox" alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="833.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Button fx:id="minimizeBtn" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#minimizeFun" onMouseEntered="#hoverEffectOn" onMouseExited="#hoverEffectOff" prefHeight="25.0" prefWidth="35.0" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="exitBtn" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#exitBtn" onMouseEntered="#hoverEffectOn" onMouseExited="#hoverEffectOff" prefHeight="25.0" prefWidth="35.0" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="485.0" prefWidth="833.0" VBox.vgrow="ALWAYS">
                <children>
                   <VBox alignment="CENTER" prefHeight="400.0" prefWidth="545.0" styleClass="leftVBox" stylesheets="@style.css" HBox.hgrow="ALWAYS">
                      <children>
@@ -106,6 +119,9 @@
                      </children>
                   </VBox>
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>
