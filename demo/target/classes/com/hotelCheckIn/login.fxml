@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="myPane" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="demo.src.main.java.com.example.controller">
+<BorderPane fx:id="myPane" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hotelCheckIn.controller">
    <center>
       <VBox fx:id="VBoxFrame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="833.0" BorderPane.alignment="CENTER">
          <children>
@@ -35,7 +35,7 @@
                      <children>
                         <ImageView fitHeight="200.0" fitWidth="194.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" styleClass="imageView" VBox.vgrow="ALWAYS">
                            <image>
-                              <Image url="@../../../../../../images/dragon-logo.png" />
+                              <Image url="@images/dragon-logo.png" />
                            </image>
                            <VBox.margin>
                               <Insets bottom="25.0" />
@@ -45,7 +45,7 @@
                            <children>
                               <ImageView fitHeight="46.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                                  <image>
-                                    <Image url="@../../../../../../images/log-fire.gif" />
+                                    <Image url="@images/log-fire.gif" />
                                  </image>
                                  <HBox.margin>
                                     <Insets bottom="15.0" />
@@ -58,7 +58,7 @@
                               </Text>
                               <ImageView fitHeight="46.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                                  <image>
-                                    <Image url="@../../../../../../images/log-fire.gif" />
+                                    <Image url="@images/log-fire.gif" />
                                  </image>
                                  <HBox.margin>
                                     <Insets bottom="15.0" left="3.0" />

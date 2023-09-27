@@ -1,4 +1,4 @@
-package demo.src.main.java.com.example;
+package com.hotelCheckIn;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

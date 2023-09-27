@@ -4,13 +4,77 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
+    <groupId>com.hotelCheckIn</groupId>
     <artifactId>demo</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>9</maven.compiler.source>
+        <maven.compiler.target>9</maven.compiler.target>
     </properties>
 
+
+
+    <dependencies>
+    
+
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx</artifactId>
+            <version>22-ea+9</version>
+            <type>pom</type>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+    <dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-controls</artifactId>
+    <version>22-ea+9</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
+<dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-base</artifactId>
+    <version>22-ea+9</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
+<dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-graphics</artifactId>
+    <version>22-ea+9</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
+<dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-fxml</artifactId>
+    <version>22-ea+9</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-swing -->
+<dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-swing</artifactId>
+    <version>22-ea+9</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-web -->
+<dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-web</artifactId>
+    <version>22-ea+9</version>
+</dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+
+
+    </dependencies>
 </project>

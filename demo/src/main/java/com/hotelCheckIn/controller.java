@@ -1,14 +1,7 @@
-package demo.src.main.java.com.example;
+package com.hotelCheckIn;
 import java.lang.annotation.Native;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import com.sun.javafx.stage.StageHelper;
-import com.sun.jna.Pointer;
-import com.sun.jna.platform.win32.User32;
-import com.sun.jna.platform.win32.WinDef;
-import com.sun.jna.platform.win32.WinUser;
-import com.sun.jna.platform.win32.WinDef.HWND;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -114,21 +107,25 @@ public class controller implements Initializable {
         //
 
         //Exit button
-        ImageView icon = new ImageView("/images/cancel.png");
+        
+        ImageView icon = new ImageView("com/hotelCheckIn/images/cancel.png");
         icon.setFitHeight(30);
         icon.setFitHeight(30);
         icon.setPreserveRatio(true);
         exitBtn.getStyleClass().add("exitBtn");
         exitBtn.setGraphic(icon);
+        
         //
 
         //Minimize Button
-        ImageView icon2 = new ImageView("/images/min.png");
+        
+        ImageView icon2 = new ImageView("com/hotelCheckIn/images/min.png");
         icon2.setFitHeight(24);
         icon2.setFitHeight(24);
         icon2.setPreserveRatio(true);
         minimizeBtn.getStyleClass().add("exitBtn");
         minimizeBtn.setGraphic(icon2);
+        
 
         //Create gap (10 pixels) between exit and minimize buttons
         upperBox.setSpacing(10);

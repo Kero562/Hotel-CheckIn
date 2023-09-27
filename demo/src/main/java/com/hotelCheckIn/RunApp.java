@@ -1,4 +1,4 @@
-package demo.src.main.java.com.example;
+package com.hotelCheckIn;
 
 public class RunApp {
     public static void main(String[] args)
