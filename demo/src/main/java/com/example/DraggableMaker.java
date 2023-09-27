@@ -1,3 +1,4 @@
+package demo.src.main.java.com.example;
 import javafx.scene.Node;
 
 public class DraggableMaker {

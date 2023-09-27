@@ -1,3 +1,4 @@
+package demo.src.main.java.com.example;
 import java.lang.annotation.Native;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,6 +27,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
