@@ -34,7 +34,6 @@ public class Main extends Application {
             root.requestFocus();
             //
 
-
             stage.show();
         } catch (Exception e)
         {

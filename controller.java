@@ -1,13 +1,24 @@
+import java.lang.annotation.Native;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.sun.javafx.stage.StageHelper;
+import com.sun.jna.Pointer;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef;
+import com.sun.jna.platform.win32.WinUser;
+import com.sun.jna.platform.win32.WinDef.HWND;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -116,6 +127,9 @@ public class controller implements Initializable {
         icon2.setPreserveRatio(true);
         minimizeBtn.getStyleClass().add("exitBtn");
         minimizeBtn.setGraphic(icon2);
+
+        //Create gap (10 pixels) between exit and minimize buttons
+        upperBox.setSpacing(10);
 
         //Take focus away from anything focusable when clicked away (textField1 here is used as focus point but anything else can be used too)
         Platform.runLater(() -> {
