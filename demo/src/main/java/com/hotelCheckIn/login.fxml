@@ -33,9 +33,9 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="400.0" prefWidth="545.0" styleClass="leftVBox" stylesheets="@style.css" HBox.hgrow="ALWAYS">
                      <children>
-                        <ImageView fitHeight="200.0" fitWidth="194.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" styleClass="imageView" VBox.vgrow="ALWAYS">
+                        <ImageView fitHeight="200.0" fitWidth="194.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                            <image>
-                              <Image url="@images/dragon-logo.png" />
+                              <Image url="@images/cabin.png" />
                            </image>
                            <VBox.margin>
                               <Insets bottom="25.0" />

@@ -1,13 +1,13 @@
 .leftVBox {
-    -fx-background-color: linear-gradient(to left, rgb(105, 15, 4), black);
+    -fx-background-color: linear-gradient(to left, rgba(121, 6, 6, 0.589), black);
 }
 
-.imageView{
+.imageView{ /* not used */
     -fx-effect: dropshadow(gaussian, rgba(70, 34, 4, 0.473), 10, 10, 0, 0);
 }
 
 .secondVBox{
-    -fx-background-color: linear-gradient(to right, rgb(105, 15, 4), black);
+    -fx-background-color: linear-gradient(to right, rgba(121, 6, 6, 0.589), black);
 }
 
 .textField{
