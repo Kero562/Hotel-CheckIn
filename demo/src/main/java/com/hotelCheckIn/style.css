@@ -1,5 +1,5 @@
 .leftVBox {
-    -fx-background-color: linear-gradient(to left, rgba(121, 6, 6, 0.589), black);
+    -fx-background-color: linear-gradient(to left, rgba(121, 62, 6, 0.589), black);
 }
 
 .imageView{ /* not used */
@@ -7,12 +7,12 @@
 }
 
 .secondVBox{
-    -fx-background-color: linear-gradient(to right, rgba(121, 6, 6, 0.589), black);
+    -fx-background-color: linear-gradient(to right, rgba(121, 62, 6, 0.589), black);
 }
 
 .textField{
-    -fx-background-color: transparent;
-    -fx-border-color: rgb(8, 180, 180);
+    -fx-background-color: transparent; /*underline effect - this line and the 2 next*/
+    -fx-border-color: rgb(8, 180, 180); 
     -fx-border-width: 0 0 1 0;
     -fx-font-weight: bold;
     -fx-text-fill: rgb(240, 137, 2);
@@ -39,4 +39,9 @@
 
 .exitHover {
     -fx-background-color: rgba(76, 228, 203, 0.479);
+}
+
+.checkStyleOn{
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgb(0, 0, 0), 10, 0, 0, 0);
 }

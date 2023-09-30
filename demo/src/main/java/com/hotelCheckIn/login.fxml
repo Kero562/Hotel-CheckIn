@@ -51,9 +51,9 @@
                                     <Insets bottom="15.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <Text fx:id="dragonsText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="dragons" textAlignment="CENTER" wrappingWidth="250.46875" HBox.hgrow="ALWAYS">
+                              <Text fx:id="dragonsText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="dragons" textAlignment="CENTER" wrappingWidth="260.46875" HBox.hgrow="ALWAYS">
                                  <font>
-                                    <Font name="Euphorigenic" size="42.0" />
+                                    <Font name="Arial" size="42.0" />
                                  </font>
                               </Text>
                               <ImageView fitHeight="46.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
@@ -111,7 +111,7 @@
                               </TextField>
                            </children>
                         </HBox>
-                        <Button fx:id="checkInButton" alignment="CENTER" mnemonicParsing="false" prefHeight="33.0" prefWidth="104.0" styleClass="btn" text="Check-In" textOverrun="CENTER_ELLIPSIS" VBox.vgrow="ALWAYS">
+                        <Button fx:id="checkInButton" alignment="CENTER" mnemonicParsing="false" onMouseEntered="#checkHoverOn" onMouseExited="#checkHoverOff" onMousePressed="#checkPressOn" onMouseReleased="#checkPressOff" prefHeight="33.0" prefWidth="104.0" styleClass="btn" text="Check-In" textOverrun="CENTER_ELLIPSIS" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets top="70.0" />
                            </VBox.margin>

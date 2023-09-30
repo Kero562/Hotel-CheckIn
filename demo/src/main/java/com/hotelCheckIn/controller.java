@@ -3,8 +3,12 @@ import java.lang.annotation.Native;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,10 +19,13 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.stage.Screen;
@@ -53,8 +60,17 @@ public class controller implements Initializable {
     @FXML
     private Button minimizeBtn;
 
+    //Hover effect for check-in button (initialized on lines 149-150)
+    ScaleTransition trans = new ScaleTransition();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        
+        //Ensure font applies for dragon text - font already downloaded
+        Font dragonFont = Font.loadFont(getClass().getResourceAsStream("/com/hotelCheckIn/fonts/euphorigenic.otf"), 42);
+        dragonsText.setFont(dragonFont);
+
+
         //Writing animation
 
         String textToAnimate = "4 Dragons Resort";
@@ -75,9 +91,9 @@ public class controller implements Initializable {
 
         //Remove bold (and any style applied to text) from prompt texts - Check CSS empty subclass
         PseudoClass empty = PseudoClass.getPseudoClass("empty");
-        textField1.pseudoClassStateChanged(empty, true);
+        textField1.pseudoClassStateChanged(empty, true); //basically means apply "empty" to textField1
         textField1.textProperty().addListener((obs, oldText, newText) -> {
-        textField1.pseudoClassStateChanged(empty, newText.isEmpty());
+        textField1.pseudoClassStateChanged(empty, newText.isEmpty()); //if nothing is written in the textfields (newText is empty), then apply the "empty" CSS class
         });
 
         textField2.pseudoClassStateChanged(empty, true);
@@ -125,10 +141,11 @@ public class controller implements Initializable {
         icon2.setPreserveRatio(true);
         minimizeBtn.getStyleClass().add("exitBtn");
         minimizeBtn.setGraphic(icon2);
-        
+        //
 
         //Create gap (10 pixels) between exit and minimize buttons
         upperBox.setSpacing(10);
+        //
 
         //Take focus away from anything focusable when clicked away (textField1 here is used as focus point but anything else can be used too)
         Platform.runLater(() -> {
@@ -140,8 +157,15 @@ public class controller implements Initializable {
         });
         });
         //
+
+        //Initialize check-in hover effect for later use
+        trans.setDuration(Duration.seconds(0.6));
+        trans.setNode(checkInButton);
+        //
+
     }
 
+    //Hover effect on for exit and minimize buttons
     public void hoverEffectOn(MouseEvent event)
     {
         Button sourceBtn = (Button) event.getSource();
@@ -157,6 +181,7 @@ public class controller implements Initializable {
         }
     }
 
+    //Hover effect off for exit and minimize buttons
     public void hoverEffectOff(MouseEvent event)
     {
         Button sourceBtn = (Button) event.getSource();
@@ -170,19 +195,63 @@ public class controller implements Initializable {
             minimizeBtn.getStyleClass().remove("exitHover");
             minimizeBtn.getStyleClass().add("exitBtn");
         }
-
     }
 
+    //Exit button functionality
     public void exitBtn()
     {
         Platform.exit();
     }
 
+    //Minimize functionality -- TBA: minimize using windows animation using JNA library
     public void minimizeFun()
     {
         Platform.runLater(() -> {
             Stage stage = (Stage) minimizeBtn.getScene().getWindow();
             stage.setIconified(true);
         });
+    }
+
+    //Hover on for check-in button
+    public void checkHoverOn()
+    {
+        //change cursor to hand
+        checkInButton.getStyleClass().add("checkStyleOn");
+
+        //increase size transition
+        trans.setToX(1.2);
+        trans.setToY(1.2);
+
+        //play
+        trans.play();
+    }
+
+
+    //Hover off for check-in button
+    public void checkHoverOff()
+    {
+        //stop the increase size transition
+        trans.stop();
+
+        //change cursor back to normal
+        checkInButton.getStyleClass().remove("checkStyleOn");
+
+        //reduce size transition
+        ScaleTransition resetTrans = new ScaleTransition(Duration.seconds(0.6), checkInButton);
+        resetTrans.setToX(1.0);
+        resetTrans.setToY(1.0);
+        resetTrans.play();
+    }
+
+    //Press effect for check-in button
+    public void checkPressOn()
+    {
+        checkInButton.setStyle("-fx-background-color: rgb(6, 0, 56);");
+    }
+
+    //release press effect for the check-in button (return color to normal)
+    public void checkPressOff()
+    {
+        checkInButton.setStyle("-fx-background-color: #3653F8");
     }
 }
