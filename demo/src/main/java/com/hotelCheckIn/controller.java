@@ -1,33 +1,28 @@
 package com.hotelCheckIn;
-import java.lang.annotation.Native;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Cursor;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.web.WebEngine;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -59,6 +54,9 @@ public class controller implements Initializable {
 
     @FXML
     private Button minimizeBtn;
+
+    @FXML
+    private Label completionText;
 
     //Hover effect for check-in button (initialized on lines 149-150)
     ScaleTransition trans = new ScaleTransition();
@@ -253,5 +251,49 @@ public class controller implements Initializable {
     public void checkPressOff()
     {
         checkInButton.setStyle("-fx-background-color: #3653F8");
+    }
+
+    //Load form upon successful login - TBA: add login verification via database
+    public void checkWindow()
+    {
+        //Temporary Verification
+        if (!textField1.getText().equals("Khalil") || !textField2.getText().equals("12345"))
+        {
+            completionText.setStyle("-fx-text-fill: red;");
+            completionText.setText("Loading Failed - No booking found");
+        }
+        else {
+            Stage currentStage = (Stage) checkInButton.getScene().getWindow();
+            Scene scene = checkInButton.getScene();
+
+            scene.setCursor(Cursor.WAIT);
+            checkInButton.setDisable(true);
+            completionText.setText("Loaded Successfully");
+            
+            Duration delay = Duration.seconds(2);
+            KeyFrame keyFrame = new KeyFrame(delay, event -> {
+            
+            currentStage.close();
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("form.fxml"));
+                Parent root = loader.load();
+
+                Stage newStage = new Stage();
+                newStage.setTitle("Form");
+
+                Scene newScene = new Scene(root);
+                newStage.setScene(newScene);
+
+                newStage.show();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            });
+            Timeline timeline = new Timeline(keyFrame);
+            timeline.play();
+        }
+        //
     }
 }

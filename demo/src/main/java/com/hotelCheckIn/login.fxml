@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.image.Image?>
@@ -70,6 +71,21 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="400.0" prefWidth="565.0" styleClass="secondVBox" stylesheets="@style.css" HBox.hgrow="ALWAYS">
                      <children>
+                        <HBox alignment="CENTER" prefHeight="21.0" prefWidth="427.0">
+                           <children>
+                              <Label fx:id="completionText" alignment="CENTER" prefHeight="22.0" prefWidth="194.0" textFill="#20d909" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Playball" size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets bottom="15.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
                         <ImageView fitHeight="86.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                            <image>
                               <Image url="@images/891399.png" />
@@ -111,7 +127,7 @@
                               </TextField>
                            </children>
                         </HBox>
-                        <Button fx:id="checkInButton" alignment="CENTER" mnemonicParsing="false" onMouseEntered="#checkHoverOn" onMouseExited="#checkHoverOff" onMousePressed="#checkPressOn" onMouseReleased="#checkPressOff" prefHeight="33.0" prefWidth="104.0" styleClass="btn" text="Check-In" textOverrun="CENTER_ELLIPSIS" VBox.vgrow="ALWAYS">
+                        <Button fx:id="checkInButton" alignment="CENTER" mnemonicParsing="false" onAction="#checkWindow" onMouseEntered="#checkHoverOn" onMouseExited="#checkHoverOff" onMousePressed="#checkPressOn" onMouseReleased="#checkPressOff" prefHeight="33.0" prefWidth="104.0" styleClass="btn" text="Check-In" textOverrun="CENTER_ELLIPSIS" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets top="70.0" />
                            </VBox.margin>
