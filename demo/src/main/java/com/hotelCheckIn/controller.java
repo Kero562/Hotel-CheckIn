@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
@@ -58,7 +59,10 @@ public class controller implements Initializable {
     @FXML
     private Label completionText;
 
-    //Hover effect for check-in button (initialized on lines 149-150)
+    @FXML
+    private VBox formBox;
+
+    //Hover effect for check-in button (set on lines 160-161)
     ScaleTransition trans = new ScaleTransition();
 
     @Override
@@ -160,7 +164,6 @@ public class controller implements Initializable {
         trans.setDuration(Duration.seconds(0.6));
         trans.setNode(checkInButton);
         //
-
     }
 
     //Hover effect on for exit and minimize buttons
@@ -285,6 +288,7 @@ public class controller implements Initializable {
                 Scene newScene = new Scene(root);
                 newStage.setScene(newScene);
 
+                newStage.setResizable(false);
                 newStage.show();
             } catch (Exception e)
             {
