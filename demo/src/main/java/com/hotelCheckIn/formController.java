@@ -10,7 +10,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class formController implements Initializable{
+public class formController{
 
     @FXML
     private Label emailLabel;
@@ -21,8 +21,7 @@ public class formController implements Initializable{
     @FXML
     private DatePicker datePicker;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
 
         //Connect label with its textfield
         emailLabel.setLabelFor(emailField);

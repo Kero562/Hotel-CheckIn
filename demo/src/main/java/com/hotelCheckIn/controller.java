@@ -1,6 +1,4 @@
 package com.hotelCheckIn;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
@@ -9,7 +7,6 @@ import javafx.application.Platform;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
@@ -28,7 +25,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class controller implements Initializable {
+public class controller {
     
     @FXML
     private Text dragonsText;
@@ -65,8 +62,7 @@ public class controller implements Initializable {
     //Hover effect for check-in button (set on lines 160-161)
     ScaleTransition trans = new ScaleTransition();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         
         //Ensure font applies for dragon text - font already downloaded
         Font dragonFont = Font.loadFont(getClass().getResourceAsStream("/com/hotelCheckIn/fonts/euphorigenic.otf"), 42);
