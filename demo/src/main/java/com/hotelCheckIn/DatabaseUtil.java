@@ -20,4 +20,16 @@ public class DatabaseUtil {
             System.out.println(e.getMessage());
         }
     }
+
+    // Initialize tables
+    public static void executeStatement(String sql) {
+        String url = "jdbc:sqlite:.\\demo\\src\\main\\java\\com\\hotelCheckIn\\db\\hotel.db";
+        try {
+            Connection conn = DriverManager.getConnection(url);
+            conn.createStatement().execute(sql);
+            System.out.println("Table has been created.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
