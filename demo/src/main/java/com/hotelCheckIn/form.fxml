@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <VBox fx:id="formBox" maxHeight="748.0" maxWidth="1471.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="748.0" prefWidth="1471.0" styleClass="form" stylesheets="@style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hotelCheckIn.formController">
    <children>
@@ -30,6 +30,12 @@
                   <Font name="Sylfaen" size="24.0" />
                </font>
             </Label>
+            <Button fx:id="submitButton" layoutX="691.0" layoutY="682.0" mnemonicParsing="false" onAction="#formSubmit" stylesheets="@style.css" text="Submit">
+               <font>
+                  <Font name="Cookie-Regular" size="26.0" />
+               </font>
+            </Button>
+            <Label fx:id="invalidEmailLabel" alignment="CENTER" layoutX="374.0" layoutY="60.0" text="• Invalid Email" textFill="#eb0000" visible="false" />
          </children>
       </AnchorPane>
    </children>
