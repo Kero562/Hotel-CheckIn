@@ -24,12 +24,12 @@ public class RunApp {
         DatabaseUtil.executeStatement(room);
 
         String reservation = "CREATE TABLE IF NOT EXISTS reservation (\n"
+        + " reservation_id integer PRIMARY KEY,\n"
         + " customer_id integer NOT NULL,\n"
         + " room_number integer NOT NULL,\n"
         + " check_in_date text NOT NULL,\n"
         + " check_out_date text NOT NULL,\n"
         + " total_cost real NOT NULL,\n"
-        + " PRIMARY KEY (customer_id, room_number),\n"
         + " FOREIGN KEY (customer_id) REFERENCES customer (customer_id),\n"
         + " FOREIGN KEY (room_number) REFERENCES rooms (room_number)\n"
         + ");";
