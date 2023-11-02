@@ -95,5 +95,14 @@
             <version>2.0.9</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.sun.webkit/webview-deps -->
+        <dependency>
+        <groupId>com.sun.webkit</groupId>
+        <artifactId>webview-deps</artifactId>
+        <version>1.3.2</version>
+        <type>pom</type>
+        </dependency>
+
+
     </dependencies>
 </project>

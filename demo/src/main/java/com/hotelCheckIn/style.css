@@ -101,3 +101,24 @@
 .date-picker-popup .spinner .button .right-arrow {
 	-fx-background-color: white;
 }
+
+.diamond-button {
+    -fx-background-color: #3498db; 
+    -fx-background-radius: 0;
+    -fx-border-color: #00ff22; 
+    -fx-border-radius: 0;
+    -fx-border-width: 2px; 
+    -fx-shape: "M50 0 L100 50 L50 100 L0 50 Z"; /* SVG path defining a diamond shape */
+    -fx-content-display: center;
+    -fx-padding: 0;
+    -fx-font-size: 14px; 
+    -fx-text-fill: black; 
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.diamond-button:hover {
+    -fx-background-color: #03141f;
+    -fx-text-fill:white;
+    -fx-cursor: hand;
+}
