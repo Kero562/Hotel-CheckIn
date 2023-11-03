@@ -100,6 +100,7 @@ public class controller {
         });
         //
 
+        /*
         //Making Booking ID textfield numbers only
         textField2.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
@@ -107,6 +108,7 @@ public class controller {
                 textField2.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
+        */
         
         //make transparent pane fill the screen for dragging
         Screen screen = Screen.getPrimary();
@@ -255,8 +257,9 @@ public class controller {
     //Load form upon successful login - TBA: add login verification via database
     public void checkWindow()
     {
+        DatabaseUtil dbManager = new DatabaseUtil();
         //Temporary Verification
-        if (!textField1.getText().equals("Khalil") || !textField2.getText().equals("12345"))
+        if (dbManager.isValidReservation(textField1.getText(), textField2.getText()))
         {
             completionText.setStyle("-fx-text-fill: red;");
             completionText.setText("Loading Failed - No booking found");

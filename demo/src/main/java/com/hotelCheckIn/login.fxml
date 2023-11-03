@@ -114,7 +114,7 @@
                         </HBox>
                         <HBox alignment="CENTER" maxHeight="50.0" prefHeight="140.0" prefWidth="423.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <TextField fx:id="textField2" alignment="CENTER" maxWidth="179.0" prefHeight="36.0" prefWidth="179.0" promptText="Booking ID" styleClass="textField" HBox.hgrow="ALWAYS">
+                              <TextField fx:id="textField2" alignment="CENTER" maxWidth="179.0" prefHeight="36.0" prefWidth="179.0" promptText="Customer ID" styleClass="textField" HBox.hgrow="ALWAYS">
                                  <effect>
                                     <Bloom />
                                  </effect>
