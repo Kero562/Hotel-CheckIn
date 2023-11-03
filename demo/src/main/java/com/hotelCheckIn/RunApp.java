@@ -55,7 +55,7 @@ public class RunApp {
         + ");";
         dbManager.executeStatement(service);
 
-        // Current UUID: 5a622e97-227e-4f84-9b19-f9b56a719853
+        // Current Customer ID/UUID: 6bada125-7e63-460e-a086-5b7b4f97e8bb
         String customerId = dbManager.addCustomer("John", "Doe", "1234567890", "John.Doe@gmail.com");
         if (customerId.equals("N/A")) {
             System.out.println("Customer not added skipping room and reservation.");
@@ -64,7 +64,7 @@ public class RunApp {
             if (roomNumber == -1) {
                 System.out.println("Room not added skipping reservation.");
             } else {
-                dbManager.addReservation(customerId, 101, 1698867509047L, 1699171122000L, 400.00);
+                dbManager.addReservation(customerId, 101, 1698867509047L, 1704013122000L, 400.00);
             }
         }
         
