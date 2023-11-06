@@ -57,7 +57,6 @@ public class formController {
             engine.load(file.toURI().toURL().toString());
         } catch (MalformedURLException e) {
             engine.load("<h1>File not found</h1>");
-            System.out.println("didn't load");
         }
     }
 

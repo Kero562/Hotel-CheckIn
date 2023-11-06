@@ -122,3 +122,22 @@
     -fx-text-fill:white;
     -fx-cursor: hand;
 }
+
+.admin {
+    -fx-background-color: rgb(99, 100, 10);
+}
+
+.adminLogin{
+    -fx-background-color: rgba(255, 0, 0, 0.466);
+    -fx-font-weight: bold;
+}
+
+.adminLogin:hover {
+    -fx-background-color: #45a049; 
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 5);
+    -fx-cursor: hand;
+}
+
+.adminLogin:pressed{
+    -fx-background-color: #1e5f25;;
+}
