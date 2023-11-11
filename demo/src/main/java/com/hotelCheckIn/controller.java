@@ -254,7 +254,6 @@ public class controller {
         checkInButton.setStyle("-fx-background-color: #3653F8");
     }
 
-    //Load form upon successful login - TBA: add login verification via database
     public void checkWindow()
     {
         DatabaseUtil dbManager = new DatabaseUtil();
