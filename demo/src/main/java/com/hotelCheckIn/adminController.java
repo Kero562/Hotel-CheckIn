@@ -9,7 +9,8 @@ public class adminController {
     @FXML
     private Button txtAdminPass;
 
-    public void initialize()
+    public void adminLogin()
     {
+        //add admin login here
     }
 }
