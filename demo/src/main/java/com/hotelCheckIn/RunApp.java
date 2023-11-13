@@ -64,7 +64,7 @@ public class RunApp {
             if (roomNumber == -1) {
                 System.out.println("Room not added skipping reservation.");
             } else {
-                dbManager.addReservation(customerId, 101, 1698867509047L, 1704013122000L, 400.00);
+                dbManager.addReservation(customerId, roomNumber, 1698867509047L, 1704013122000L, 400.00);
             }
         }
         
