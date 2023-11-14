@@ -1,7 +1,10 @@
 package com.hotelCheckIn;
 
+import java.awt.TextField;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 
 public class adminController {
 
@@ -9,9 +12,15 @@ public class adminController {
     @FXML
     private Button txtAdminPass;
 
+    @FXML
+    private TextField nameField;
+
+    @FXML
+    private PasswordField passField;
+
     public void adminLogin()
     {
-        controllerLogin(null, null);
+        controllerLogin(nameField.getText(), passField.getText());
     }
 
     public void controllerLogin(String username, String password) {

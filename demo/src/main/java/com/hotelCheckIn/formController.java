@@ -9,6 +9,8 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -76,6 +78,9 @@ public class formController {
 
     @FXML
     private VBox serviceBox;
+
+    private boolean bedLabelAdded = false;
+    private boolean keyLabelAdded = false;
 
     public void initialize() {
 
@@ -231,6 +236,8 @@ public class formController {
 
                 serviceExtraBed = (byte) json.getInt("bedChoice");
                 serviceDigitalKey = (byte) json.getInt("digitalKeyChoice");
+
+                manageServiceBox();
             });
 
             newStage.setResizable(false);
@@ -241,4 +248,14 @@ public class formController {
         }
     }
     
+
+    private void manageServiceBox()
+    {
+        /*
+        if (serviceExtraBed == 1 && !bedLabelAdded)
+        {
+            serviceBox.add
+        }
+        */
+    }
 }

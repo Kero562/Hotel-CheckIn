@@ -21,12 +21,12 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="300.0" prefWidth="343.0">
          <children>
-            <TextField alignment="CENTER" maxWidth="120.0" prefHeight="25.0" prefWidth="50.0" VBox.vgrow="ALWAYS">
+            <TextField fx:id="nameField" alignment="CENTER" maxWidth="120.0" prefHeight="25.0" prefWidth="50.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="50.0" />
                </VBox.margin>
             </TextField>
-            <PasswordField alignment="CENTER" maxWidth="120.0" VBox.vgrow="ALWAYS" />
+            <PasswordField fx:id="passField" alignment="CENTER" maxWidth="120.0" VBox.vgrow="ALWAYS" />
             <Button fx:id="txtAdminPass" alignment="CENTER" mnemonicParsing="false" onAction="#adminLogin" styleClass="adminLogin" stylesheets="@style.css" text="Login">
                <VBox.margin>
                   <Insets top="50.0" />
