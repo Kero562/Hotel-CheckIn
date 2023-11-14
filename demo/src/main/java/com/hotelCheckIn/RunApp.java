@@ -64,6 +64,9 @@ public class RunApp {
             if (roomNumber == -1) {
                 System.out.println("Room not added skipping reservation.");
             } else {
+                // Maybe create a view for this
+                // https://stackoverflow.com/questions/8753959/round-a-floating-point-number-to-the-next-integer-value-in-java
+                // totalCost = (int) Math.ceil((checkout-checkin)/3600) * dailyRate
                 dbManager.addReservation(customerId, roomNumber, 1698867509047L, 1704013122000L, 400.00);
             }
         }
