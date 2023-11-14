@@ -72,6 +72,39 @@ public class DatabaseUtil {
         }
     }
 
+    public boolean isAdmin(String username, String password) {
+        try {
+            Connection conn = this.connect();
+            String adminQuery = "SELECT * FROM admin a WHERE a.username = '" + username + "' AND a.password = '" + password + "'";
+            ResultSet adminTable = conn.createStatement().executeQuery(adminQuery);
+            String adminID = adminTable.getString("admin_id");
+            if (adminID != null) {
+                System.out.println("Valid admin: " + username + " with UUID " + adminID);
+                return true;
+            } else {
+                System.out.println("Invalid admin: " + username + " with password " + password);
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public String addAdmin(String username, String password) {
+        String adminID = UUID.randomUUID().toString();
+        String sql = "INSERT INTO admin (admin_id, username, password) VALUES ('" + adminID + "', '" + username + "', '" + password + "')";
+        try {
+            Connection conn = this.connect();
+            conn.createStatement().execute(sql);
+            System.out.println("Admin has been added with ID: " + adminID);
+            return adminID;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return "N/A";
+        }
+    }
+
     // Add customer to database
     public String addCustomer(String firstName, String lastName, String phone, String email) {
         String customerID = UUID.randomUUID().toString();

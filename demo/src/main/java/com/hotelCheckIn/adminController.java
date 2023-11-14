@@ -11,6 +11,19 @@ public class adminController {
 
     public void adminLogin()
     {
-        //add admin login here
+        controllerLogin(null, null);
+    }
+
+    public void controllerLogin(String username, String password) {
+
+        DatabaseUtil dbManager = new DatabaseUtil();
+        if(dbManager.isAdmin(username, password))
+        {
+            System.out.println("Admin login successful");
+        }
+        else
+        {
+            System.out.println("Admin login failed");
+        }
     }
 }
