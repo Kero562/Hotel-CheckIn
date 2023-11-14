@@ -103,5 +103,13 @@
         <type>pom</type>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.googlecode.libphonenumber/libphonenumber -->
+        <dependency>
+        <groupId>com.googlecode.libphonenumber</groupId>
+        <artifactId>libphonenumber</artifactId>
+        <version>8.13.25</version>
+        </dependency>
+
+
     </dependencies>
 </project>
