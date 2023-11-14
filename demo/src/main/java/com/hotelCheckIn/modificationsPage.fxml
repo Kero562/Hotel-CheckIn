@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="mainBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="601.0" style="-fx-background-color: linear-gradient(to right, #000000, #6e4514, #000000);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="601.0" style="-fx-background-color: linear-gradient(to right, #000000, #6e4514, #000000);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane layoutY="-7.0" prefHeight="67.0" prefWidth="601.0" style="-fx-background-color: #ab6a15;">
          <children>
@@ -51,7 +50,7 @@
          </toggleGroup>
       </RadioButton>
       <RadioButton fx:id="noButton1" layoutX="94.0" layoutY="195.0" mnemonicParsing="false" selected="true" text="No" textFill="WHITE" toggleGroup="$digitalKey" />
-      <Label fx:id="digitalKeyAccess" layoutX="35.0" layoutY="157.0" style="-fx-font-weight: 675;" text="Request Digial Key Access" textFill="WHITE">
+      <Label fx:id="digitalKeyAccess" layoutX="35.0" layoutY="157.0" style="-fx-font-weight: 675;" text="Request Digital Key Access" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>

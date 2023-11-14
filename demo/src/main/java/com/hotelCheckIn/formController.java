@@ -12,6 +12,9 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -22,6 +25,8 @@ import javafx.scene.control.skin.ComboBoxListViewSkin;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.awt.Toolkit;
 import java.io.File;
@@ -193,6 +198,29 @@ public class formController {
             }
         }
         //
+    }
+
+    //Open services fxml
+    public void serviceOpen()
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("modificationsPage.fxml"));
+            Parent root = loader.load();
+
+            Stage newStage = new Stage();
+            newStage.setTitle("Services");
+            newStage.initModality(Modality.APPLICATION_MODAL);
+            newStage.initOwner(submitButton.getScene().getWindow());
+
+            Scene newScene = new Scene(root);
+            newStage.setScene(newScene);
+
+            newStage.setResizable(false);
+            newStage.showAndWait();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
 }
