@@ -50,6 +50,7 @@
             </Label>
             <Button fx:id="serviceButton" layoutX="256.0" layoutY="579.0" mnemonicParsing="false" onAction="#serviceOpen" text="Update Services" />
             <Separator layoutX="2.0" layoutY="656.0" prefHeight="1.0" prefWidth="1467.0" />
+            <VBox fx:id="serviceBox" alignment="CENTER" layoutX="132.0" layoutY="433.0" prefHeight="144.0" prefWidth="350.0" />
          </children>
       </AnchorPane>
    </children>

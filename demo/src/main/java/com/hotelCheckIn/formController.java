@@ -23,6 +23,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.skin.ComboBoxListViewSkin;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
@@ -69,6 +70,12 @@ public class formController {
 
     @FXML
     private Label countryCodeLabel;
+
+    private byte serviceExtraBed = 0;
+    private byte serviceDigitalKey = 0;
+
+    @FXML
+    private VBox serviceBox;
 
     public void initialize() {
 
@@ -209,11 +216,22 @@ public class formController {
 
             Stage newStage = new Stage();
             newStage.setTitle("Services");
+            //Make it a child window to this
             newStage.initModality(Modality.APPLICATION_MODAL);
             newStage.initOwner(submitButton.getScene().getWindow());
-
+            //
             Scene newScene = new Scene(root);
             newStage.setScene(newScene);
+
+            //Send info back to parent controller here upon submission
+            modificationController childController = loader.getController();
+            childController.setSubmitEventHandler(json -> {
+
+                childController.preSetOptions(serviceExtraBed, serviceDigitalKey);
+
+                serviceExtraBed = (byte) json.getInt("bedChoice");
+                serviceDigitalKey = (byte) json.getInt("digitalKeyChoice");
+            });
 
             newStage.setResizable(false);
             newStage.showAndWait();
