@@ -97,26 +97,32 @@
 
         <!-- https://mvnrepository.com/artifact/com.sun.webkit/webview-deps -->
         <dependency>
-        <groupId>com.sun.webkit</groupId>
-        <artifactId>webview-deps</artifactId>
-        <version>1.3.2</version>
-        <type>pom</type>
+            <groupId>com.sun.webkit</groupId>
+            <artifactId>webview-deps</artifactId>
+            <version>1.3.2</version>
+            <type>pom</type>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.googlecode.libphonenumber/libphonenumber -->
         <dependency>
-        <groupId>com.googlecode.libphonenumber</groupId>
-        <artifactId>libphonenumber</artifactId>
-        <version>8.13.25</version>
+            <groupId>com.googlecode.libphonenumber</groupId>
+            <artifactId>libphonenumber</artifactId>
+            <version>8.13.25</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
-        <groupId>org.json</groupId>
-        <artifactId>json</artifactId>
-        <version>20231013</version>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
 
     </dependencies>
 </project>

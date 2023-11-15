@@ -80,7 +80,7 @@ public class formController {
     private boolean bedLabelAdded = false;
     private boolean keyLabelAdded = false;
 
-    private String customerID;
+    private int customerID;
 
     @FXML
     private TextField roomField;
@@ -285,6 +285,6 @@ public class formController {
 
     public void passCustomerID(String id)
     {
-        customerID = id;
+        customerID = Integer.parseInt(id);
     }
 }

@@ -7,7 +7,7 @@ public class RunApp {
         dbManager.initializeDB();
 
         String customer = "CREATE TABLE IF NOT EXISTS customer (\n"
-        + "	customer_id text PRIMARY KEY,\n"
+        + "	customer_id integer PRIMARY KEY,\n"
         + "	first_name text NOT NULL,\n"
         + "	last_name text NOT NULL,\n"
         + "	phone text NOT NULL UNIQUE,\n"
@@ -16,7 +16,7 @@ public class RunApp {
         dbManager.executeStatement(customer);
 
         String admin = "CREATE TABLE IF NOT EXISTS admin (\n"
-        + "	admin_id text PRIMARY KEY,\n"
+        + "	admin_id integer PRIMARY KEY,\n"
         + "	username text NOT NULL UNIQUE,\n"
         + "	password text NOT NULL UNIQUE\n"
         + ");";
@@ -37,7 +37,7 @@ public class RunApp {
         formats which only go to the second) 
         */
         String reservation = "CREATE TABLE IF NOT EXISTS reservation (\n"
-        + " customer_id text NOT NULL,\n"
+        + " customer_id integer NOT NULL,\n"
         + " room_number integer NOT NULL,\n"
         + " check_in_date integer NOT NULL,\n"
         + " check_out_date integer NOT NULL,\n"
@@ -62,9 +62,9 @@ public class RunApp {
         + ");";
         dbManager.executeStatement(service);
 
-        // Current Customer ID/UUID: 8d720cbc-3303-44a5-b5c1-b5464fab9d3a
-        String customerId = dbManager.addCustomer("John", "Doe", "1234567890", "John.Doe@gmail.com");
-        if (customerId.equals("N/A")) {
+        // Current Customer ID/UUID: 563079
+        int customerId = dbManager.addCustomer("John", "Doe", "1234567890", "John.Doe@gmail.com");
+        if (customerId == -1) {
             System.out.println("Customer not added skipping room and reservation.");
         } else {
             int roomNumber = dbManager.addRoom(101, 2, 100.00, "Standard", "Occupied");
@@ -80,11 +80,6 @@ public class RunApp {
 
         dbManager.addAdmin("admin", "password");
         
-
-        // String checkInLogView = "CREATE VIEW IF NOT EXISTS checkInLog AS\n"
-        // + "SELECT c.customer_id AS customer_id, c.first_name AS first_name, c.last_name AS last_name, c.phone AS phone, c.email AS email, r.room_number AS room_number, r.check_in_date AS check_in_date, r.check_out_date AS check_out_date\n"
-        // + "FROM customer c, reservation r\n"
-        // + "INNER JOIN reservation ON customer.customer_id = reservation.customer_id;";
         String checkInLogView = "CREATE VIEW IF NOT EXISTS check_in_log AS\n"
         + "SELECT c.customer_id, c.first_name, c.last_name, c.phone, c.email, r.room_number, r.check_in_date, r.check_out_date, r.reservation_status\n"
         + "FROM customer c, reservation r\n"

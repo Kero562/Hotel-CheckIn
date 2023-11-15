@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
+import org.apache.commons.lang3.RandomStringUtils;
 
 public class DatabaseUtil {
     // Initialize Database file
@@ -47,22 +48,31 @@ public class DatabaseUtil {
     }
 
     // Check customer reservation
-    public boolean isValidReservation(String lastName, String phoneNumber) {        
+    public boolean isValidReservation(String lastName, String strCustomerId) {        
         try {
+            int customerId = Integer.parseInt(strCustomerId);
             Connection conn = this.connect();
-            String customerQuery = "SELECT * FROM customer c WHERE c.last_name = '" + lastName + "' AND c.phone = '" + phoneNumber + "'";
-            ResultSet customerTable = conn.createStatement().executeQuery(customerQuery);
-            String customerID = customerTable.getString("customer_id");
+            String customerQuery = "SELECT * FROM customer c WHERE c.last_name = '" + lastName + "' AND c.customer_id = '" + customerId + "'";
+            boolean isValidCustomer = conn.createStatement().execute(customerQuery);
 
-            String reservationQuery = "Select * FROM reservation r WHERE r.customer_id = '" + customerID + "'";
+            String reservationQuery = "Select * FROM reservation r WHERE r.customer_id = '" + customerId + "'";
             ResultSet reservationTable = conn.createStatement().executeQuery(reservationQuery);
             long checkInDate = reservationTable.getLong("check_in_date");
             long checkOutDate = reservationTable.getLong("check_out_date");
 
-            if (checkInDate < System.currentTimeMillis() && checkOutDate > System.currentTimeMillis()) {
+            if (checkInDate < System.currentTimeMillis() && checkOutDate > System.currentTimeMillis() && isValidCustomer) {
                 System.out.println("Valid reservation.");
                 return true;
-            } else {
+            }
+            else if (checkInDate > System.currentTimeMillis() && checkOutDate > System.currentTimeMillis() && isValidCustomer) {
+                System.out.println("Reservation is not valid yet.");
+                return false;
+            }
+            else if (checkInDate < System.currentTimeMillis() && checkOutDate < System.currentTimeMillis() && isValidCustomer) {
+                System.out.println("Reservation has expired.");
+                return false;
+            }
+            else {
                 System.out.println("Invalid reservation.");
                 return false;
             }
@@ -91,33 +101,34 @@ public class DatabaseUtil {
         }
     }
 
-    public String addAdmin(String username, String password) {
-        String adminID = UUID.randomUUID().toString();
-        String sql = "INSERT INTO admin (admin_id, username, password) VALUES ('" + adminID + "', '" + username + "', '" + password + "')";
+    public int addAdmin(String username, String password) {
+        int adminId = Integer.parseInt(RandomStringUtils.randomNumeric(8)); 
+        String sql = "INSERT INTO admin (admin_id, username, password) VALUES ('" + adminId + "', '" + username + "', '" + password + "')";
         try {
             Connection conn = this.connect();
             conn.createStatement().execute(sql);
-            System.out.println("Admin has been added with ID: " + adminID);
-            return adminID;
+            System.out.println("Admin has been added with ID: " + adminId);
+            return adminId;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return "N/A";
+            return -1;
         }
     }
 
     // Add customer to database
-    public String addCustomer(String firstName, String lastName, String phone, String email) {
+    public int addCustomer(String firstName, String lastName, String phone, String email) {
         // https://stackoverflow.com/questions/4267475/generating-8-character-only-uuids
-        String customerID = UUID.randomUUID().toString();
-        String sql = "INSERT INTO customer (customer_id, first_name, last_name, phone, email) VALUES ('" + customerID + "', '" + firstName + "', '" + lastName + "', '" + phone + "', '" + email + "')";
+        //String customerID = UUID.randomUUID().toString();
+        int customerId = Integer.parseInt(RandomStringUtils.randomNumeric(8)); 
+        String sql = "INSERT INTO customer (customer_id, first_name, last_name, phone, email) VALUES ('" + customerId + "', '" + firstName + "', '" + lastName + "', '" + phone + "', '" + email + "')";
         try {
             Connection conn = this.connect();
             conn.createStatement().execute(sql);
-            System.out.println("Customer has been added with ID: " + customerID);
-            return customerID;
+            System.out.println("Customer has been added with ID: " + customerId);
+            return customerId;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return "N/A";
+            return -1;
         }
     }
 
@@ -134,7 +145,7 @@ public class DatabaseUtil {
         }
     }
 
-    public void addReservation (String customerID, int roomNumber, long checkInDate, long checkOutDate, String reservationStatus) {
+    public void addReservation (int customerID, int roomNumber, long checkInDate, long checkOutDate, String reservationStatus) {
         String sql = "INSERT INTO reservation (customer_id, room_number, check_in_date, check_out_date, reservation_status) VALUES ('" + customerID + "', '" + roomNumber + "', '" + checkInDate + "', '" + checkOutDate + "', '" + reservationStatus + "')";
         try {
             Connection conn = this.connect();
@@ -145,7 +156,7 @@ public class DatabaseUtil {
         }
     }
 
-    private void setReservationStatus (String customerId, int roomNumber, String status) {
+    private void setReservationStatus (int customerId, int roomNumber, String status) {
         // Checkin function for room and calls this func
         String sql = "UPDATE reservation SET reservation_status = '" + status + "' WHERE customer_id = '" + customerId + "' AND room_number = '" + roomNumber + "'";
         try {
@@ -168,7 +179,7 @@ public class DatabaseUtil {
         }
     }
 
-    public void checkIn (String customerId, int roomNumber) {
+    public void checkIn(int customerId, int roomNumber) {
         setReservationStatus(customerId, roomNumber, "Checked In");
         setRoomStatus(roomNumber, "Occupied");
     }
