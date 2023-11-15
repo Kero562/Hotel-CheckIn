@@ -8,8 +8,8 @@ public class RunApp {
 
         String customer = "CREATE TABLE IF NOT EXISTS customer (\n"
         + "	customer_id text PRIMARY KEY,\n"
-        + "	firstName text NOT NULL,\n"
-        + "	lastName text NOT NULL,\n"
+        + "	first_name text NOT NULL,\n"
+        + "	last_name text NOT NULL,\n"
         + "	phone text NOT NULL UNIQUE,\n"
         + "	email text NOT NULL UNIQUE\n"
         + ");";
@@ -62,12 +62,12 @@ public class RunApp {
         + ");";
         dbManager.executeStatement(service);
 
-        // Current Customer ID/UUID: 6bada125-7e63-460e-a086-5b7b4f97e8bb
+        // Current Customer ID/UUID: 8d720cbc-3303-44a5-b5c1-b5464fab9d3a
         String customerId = dbManager.addCustomer("John", "Doe", "1234567890", "John.Doe@gmail.com");
         if (customerId.equals("N/A")) {
             System.out.println("Customer not added skipping room and reservation.");
         } else {
-            int roomNumber = dbManager.addRoom(101, 2, 100.00, "Standard", "Available");
+            int roomNumber = dbManager.addRoom(101, 2, 100.00, "Standard", "Occupied");
             if (roomNumber == -1) {
                 System.out.println("Room not added skipping reservation.");
             } else {
@@ -80,6 +80,16 @@ public class RunApp {
 
         dbManager.addAdmin("admin", "password");
         
+
+        // String checkInLogView = "CREATE VIEW IF NOT EXISTS checkInLog AS\n"
+        // + "SELECT c.customer_id AS customer_id, c.first_name AS first_name, c.last_name AS last_name, c.phone AS phone, c.email AS email, r.room_number AS room_number, r.check_in_date AS check_in_date, r.check_out_date AS check_out_date\n"
+        // + "FROM customer c, reservation r\n"
+        // + "INNER JOIN reservation ON customer.customer_id = reservation.customer_id;";
+        String checkInLogView = "CREATE VIEW IF NOT EXISTS check_in_log AS\n"
+        + "SELECT c.customer_id, c.first_name, c.last_name, c.phone, c.email, r.room_number, r.check_in_date, r.check_out_date\n"
+        + "FROM customer c, reservation r\n"
+        + "INNER JOIN reservation ON c.customer_id = r.customer_id;";
+        dbManager.executeStatement(checkInLogView);
 
         // long currentTimestamp = System.currentTimeMillis();
         // System.out.println("The current epoch time is: " + currentTimestamp);

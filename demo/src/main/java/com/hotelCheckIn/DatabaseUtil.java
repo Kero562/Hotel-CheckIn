@@ -50,7 +50,7 @@ public class DatabaseUtil {
     public boolean isValidReservation(String lastName, String phoneNumber) {        
         try {
             Connection conn = this.connect();
-            String customerQuery = "SELECT * FROM customer c WHERE c.lastName = '" + lastName + "' AND c.phone = '" + phoneNumber + "'";
+            String customerQuery = "SELECT * FROM customer c WHERE c.last_name = '" + lastName + "' AND c.phone = '" + phoneNumber + "'";
             ResultSet customerTable = conn.createStatement().executeQuery(customerQuery);
             String customerID = customerTable.getString("customer_id");
 
@@ -108,7 +108,7 @@ public class DatabaseUtil {
     // Add customer to database
     public String addCustomer(String firstName, String lastName, String phone, String email) {
         String customerID = UUID.randomUUID().toString();
-        String sql = "INSERT INTO customer (customer_id, firstName, lastName, phone, email) VALUES ('" + customerID + "', '" + firstName + "', '" + lastName + "', '" + phone + "', '" + email + "')";
+        String sql = "INSERT INTO customer (customer_id, first_name, last_name, phone, email) VALUES ('" + customerID + "', '" + firstName + "', '" + lastName + "', '" + phone + "', '" + email + "')";
         try {
             Connection conn = this.connect();
             conn.createStatement().execute(sql);
