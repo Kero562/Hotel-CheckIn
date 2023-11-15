@@ -41,7 +41,7 @@ public class RunApp {
         + " room_number integer NOT NULL,\n"
         + " check_in_date integer NOT NULL,\n"
         + " check_out_date integer NOT NULL,\n"
-        + " total_cost real NOT NULL,\n"
+        + " reservation_status text NOT NULL,\n"
         + " PRIMARY KEY (customer_id, room_number),\n"
         + " FOREIGN KEY (customer_id) REFERENCES customer (customer_id),\n"
         + " FOREIGN KEY (room_number) REFERENCES rooms (room_number)\n"
@@ -74,7 +74,7 @@ public class RunApp {
                 // Maybe create a view for this
                 // https://stackoverflow.com/questions/8753959/round-a-floating-point-number-to-the-next-integer-value-in-java
                 // totalCost = (int) Math.ceil((checkout-checkin)/3600) * dailyRate
-                dbManager.addReservation(customerId, roomNumber, 1698867509047L, 1704013122000L, 400.00);
+                dbManager.addReservation(customerId, roomNumber, 1698867509047L, 1704013122000L, "Not Checked In");
             }
         }
 
@@ -86,7 +86,7 @@ public class RunApp {
         // + "FROM customer c, reservation r\n"
         // + "INNER JOIN reservation ON customer.customer_id = reservation.customer_id;";
         String checkInLogView = "CREATE VIEW IF NOT EXISTS check_in_log AS\n"
-        + "SELECT c.customer_id, c.first_name, c.last_name, c.phone, c.email, r.room_number, r.check_in_date, r.check_out_date\n"
+        + "SELECT c.customer_id, c.first_name, c.last_name, c.phone, c.email, r.room_number, r.check_in_date, r.check_out_date, r.reservation_status\n"
         + "FROM customer c, reservation r\n"
         + "INNER JOIN reservation ON c.customer_id = r.customer_id;";
         dbManager.executeStatement(checkInLogView);
