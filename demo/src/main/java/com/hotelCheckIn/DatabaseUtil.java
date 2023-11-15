@@ -144,7 +144,8 @@ public class DatabaseUtil {
         }
     }
 
-    public void setReservationStatus (String customerId, int roomNumber, String status) {
+    private void setReservationStatus (String customerId, int roomNumber, String status) {
+        // Checkin function for room and calls this func
         String sql = "UPDATE reservation SET reservation_status = '" + status + "' WHERE customer_id = '" + customerId + "' AND room_number = '" + roomNumber + "'";
         try {
             Connection conn = this.connect();
@@ -153,5 +154,21 @@ public class DatabaseUtil {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private void setRoomStatus (int roomNumber, String status) {
+        String sql = "UPDATE rooms SET room_status = '" + status + "' WHERE room_number = '" + roomNumber + "'";
+        try {
+            Connection conn = this.connect();
+            conn.createStatement().execute(sql);
+            System.out.println("Room status has been updated.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void checkIn (String customerId, int roomNumber) {
+        setReservationStatus(customerId, roomNumber, "Checked In");
+        setRoomStatus(roomNumber, "Occupied");
     }
 }

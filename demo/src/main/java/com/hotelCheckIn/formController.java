@@ -225,7 +225,9 @@ public class formController {
 
         if (formComplete)
         {
-            
+            DatabaseUtil dbManager = new DatabaseUtil();
+            int roomNumber = Integer.parseInt(roomField.getText());
+            dbManager.checkIn(customerID, roomNumber);
         }
     }
 
