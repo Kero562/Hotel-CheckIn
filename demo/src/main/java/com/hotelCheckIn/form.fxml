@@ -38,11 +38,11 @@
                   <Font name="Cookie-Regular" size="26.0" />
                </font>
             </Button>
-            <Label fx:id="invalidEmailLabel" alignment="CENTER" layoutX="374.0" layoutY="60.0" text="• Invalid Email" textFill="#eb0000" visible="false" />
+            <Label fx:id="invalidEmailLabel" alignment="CENTER" layoutX="374.0" layoutY="38.0" text="• Invalid Email" textFill="#eb0000" visible="false" />
             <WebView fx:id="webView" layoutX="644.0" layoutY="73.0" prefHeight="296.0" prefWidth="688.0" />
-            <Label fx:id="invalidNumLabel" alignment="CENTER" layoutX="371.0" layoutY="182.0" prefHeight="17.0" prefWidth="156.0" text="• Invalid Number" textFill="#eb0000" visible="false" />
+            <Label fx:id="invalidNumLabel" alignment="CENTER" layoutX="371.0" layoutY="199.0" prefHeight="17.0" prefWidth="156.0" text="• Invalid Number" textFill="#eb0000" visible="false" />
             <ComboBox fx:id="cCodeCB" layoutX="260.0" layoutY="226.0" prefHeight="25.0" prefWidth="68.0" />
-            <Label fx:id="countryCodeLabel" alignment="CENTER" layoutX="204.0" layoutY="182.0" prefHeight="17.0" prefWidth="156.0" text="• Missing Country Code" textFill="#eb0000" visible="false" />
+            <Label fx:id="countryCodeLabel" alignment="CENTER" layoutX="201.0" layoutY="199.0" prefHeight="17.0" prefWidth="156.0" text="• Missing Country Code" textFill="#eb0000" visible="false" />
             <Label fx:id="emailLabel2" alignment="CENTER" layoutX="258.0" layoutY="403.0" prefHeight="30.0" prefWidth="97.0" text="Services" textFill="WHITE">
                <font>
                   <Font name="Sylfaen" size="24.0" />

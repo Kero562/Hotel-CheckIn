@@ -85,6 +85,10 @@ public class formController {
     @FXML
     private TextField roomField;
 
+    //For service scene preservation across invokes
+    private Stage serviceStage;
+    private Scene serviceScene;
+
     public void initialize() {
 
         //Connect label with its textfield
@@ -123,7 +127,6 @@ public class formController {
         //Number formatting for room number (max 3 digits)
         roomField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d{0,3}")) {
-                // If the new input is not a digit, replace it with an empty string
                 roomField.setText(oldValue);
             }
         });
@@ -232,18 +235,20 @@ public class formController {
     //Open services fxml
     public void serviceOpen()
     {
+        if (serviceStage == null)
+    {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("modificationsPage.fxml"));
             Parent root = loader.load();
 
-            Stage newStage = new Stage();
-            newStage.setTitle("Services");
+            serviceStage = new Stage();
+            serviceStage.setTitle("Services");
             //Make it a child window to this
-            newStage.initModality(Modality.APPLICATION_MODAL);
-            newStage.initOwner(submitButton.getScene().getWindow());
+            serviceStage.initModality(Modality.APPLICATION_MODAL);
+            serviceStage.initOwner(submitButton.getScene().getWindow());
             //
-            Scene newScene = new Scene(root);
-            newStage.setScene(newScene);
+            serviceScene = new Scene(root);
+            serviceStage.setScene(serviceScene);
 
             //Send info back to parent controller here upon submission
             modificationController childController = loader.getController();
@@ -252,19 +257,20 @@ public class formController {
                 serviceExtraBed = (byte) json.getInt("bedChoice");
                 serviceDigitalKey = (byte) json.getInt("digitalKeyChoice");
 
-                childController.preSetOptions(serviceExtraBed, serviceDigitalKey);
-
+                //Add/remove labels accordingly
                 manageServiceBox();
             });
 
-            newStage.setResizable(false);
-            newStage.showAndWait();
+            serviceStage.setResizable(false);
+            serviceStage.showAndWait();
         } catch (Exception e)
         {
             e.printStackTrace();
         }
+    } else {
+        serviceStage.showAndWait();
     }
-    
+}
 
     private void manageServiceBox()
     {

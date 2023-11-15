@@ -23,6 +23,9 @@ public class modificationController {
     private RadioButton yesButton;
 
     @FXML
+    private RadioButton yesButton1;
+
+    @FXML
     private RadioButton noButton;
 
     @FXML
@@ -30,7 +33,6 @@ public class modificationController {
 
     @FXML
     private RadioButton yesbutton1;
-
     //Functional interface with function defined in formController
     public interface SubmitEventHandler {
         void onSubmit(JSONObject json);
@@ -68,21 +70,5 @@ public class modificationController {
 
         Stage stage = (Stage) submitButton.getScene().getWindow();
         stage.close();
-    }
-
-    public void preSetOptions(byte bed, byte key)
-    {
-        System.out.println(bed);
-        System.out.println(key);
-
-        if (bed == 1)
-        {
-            extraBed.selectToggle(yesButton);
-        }
-
-        if (key == 1)
-        {
-            digitalKey.selectToggle(yesbutton1);
-        }
     }
 }

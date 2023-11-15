@@ -111,8 +111,7 @@ public class controller {
         */
         
         //make transparent pane fill the screen for dragging
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
+        Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
 
         myPane.setMinWidth(bounds.getWidth());
         myPane.setMinHeight(bounds.getHeight());
