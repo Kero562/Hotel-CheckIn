@@ -50,7 +50,7 @@ public class DatabaseUtil {
     public boolean isValidReservation(String lastName, String phoneNumber) {        
         try {
             Connection conn = this.connect();
-            String customerQuery = "SELECT * FROM customer c WHERE c.lastName = '" + lastName + "' AND c.phone = '" + phoneNumber + "'";
+            String customerQuery = "SELECT * FROM customer c WHERE c.last_name = '" + lastName + "' AND c.phone = '" + phoneNumber + "'";
             ResultSet customerTable = conn.createStatement().executeQuery(customerQuery);
             String customerID = customerTable.getString("customer_id");
 
@@ -108,7 +108,7 @@ public class DatabaseUtil {
     // Add customer to database
     public String addCustomer(String firstName, String lastName, String phone, String email) {
         String customerID = UUID.randomUUID().toString();
-        String sql = "INSERT INTO customer (customer_id, firstName, lastName, phone, email) VALUES ('" + customerID + "', '" + firstName + "', '" + lastName + "', '" + phone + "', '" + email + "')";
+        String sql = "INSERT INTO customer (customer_id, first_name, last_name, phone, email) VALUES ('" + customerID + "', '" + firstName + "', '" + lastName + "', '" + phone + "', '" + email + "')";
         try {
             Connection conn = this.connect();
             conn.createStatement().execute(sql);
@@ -133,12 +133,23 @@ public class DatabaseUtil {
         }
     }
 
-    public void addReservation (String customerID, int roomNumber, long checkInDate, long checkOutDate, double totalCost) {
-        String sql = "INSERT INTO reservation (customer_id, room_number, check_in_date, check_out_date, total_cost) VALUES ('" + customerID + "', '" + roomNumber + "', '" + checkInDate + "', '" + checkOutDate + "', '" + totalCost + "')";
+    public void addReservation (String customerID, int roomNumber, long checkInDate, long checkOutDate, String reservationStatus) {
+        String sql = "INSERT INTO reservation (customer_id, room_number, check_in_date, check_out_date, reservation_status) VALUES ('" + customerID + "', '" + roomNumber + "', '" + checkInDate + "', '" + checkOutDate + "', '" + reservationStatus + "')";
         try {
             Connection conn = this.connect();
             conn.createStatement().execute(sql);
             System.out.println("Reservation has been added.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void setReservationStatus (String customerId, int roomNumber, String status) {
+        String sql = "UPDATE reservation SET reservation_status = '" + status + "' WHERE customer_id = '" + customerId + "' AND room_number = '" + roomNumber + "'";
+        try {
+            Connection conn = this.connect();
+            conn.createStatement().execute(sql);
+            System.out.println("Reservation status has been updated.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
