@@ -72,6 +72,9 @@ public class modificationController {
 
     public void preSetOptions(byte bed, byte key)
     {
+        System.out.println(bed);
+        System.out.println(key);
+
         if (bed == 1)
         {
             extraBed.selectToggle(yesButton);

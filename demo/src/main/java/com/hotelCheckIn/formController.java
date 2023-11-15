@@ -173,6 +173,7 @@ public class formController {
         countryCodeLabel.setVisible(false);
         //
 
+        //When form is complete, make the request
         boolean formComplete = true;
 
         //Check email validity
@@ -210,6 +211,11 @@ public class formController {
             }
         }
         //
+
+        if (formComplete)
+        {
+            
+        }
     }
 
     //Open services fxml
@@ -232,10 +238,10 @@ public class formController {
             modificationController childController = loader.getController();
             childController.setSubmitEventHandler(json -> {
 
-                childController.preSetOptions(serviceExtraBed, serviceDigitalKey);
-
                 serviceExtraBed = (byte) json.getInt("bedChoice");
                 serviceDigitalKey = (byte) json.getInt("digitalKeyChoice");
+
+                childController.preSetOptions(serviceExtraBed, serviceDigitalKey);
 
                 manageServiceBox();
             });
@@ -251,11 +257,14 @@ public class formController {
 
     private void manageServiceBox()
     {
-        /*
         if (serviceExtraBed == 1 && !bedLabelAdded)
         {
-            serviceBox.add
+            serviceBox.getChildren().add(new Label("- Extra Bed"));
         }
-        */
+
+        if (serviceDigitalKey == 1 && !keyLabelAdded)
+        {
+            serviceBox.getChildren().add(new Label("- Digital Key Access"));
+        }
     }
 }
