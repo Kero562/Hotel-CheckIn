@@ -82,6 +82,9 @@ public class formController {
 
     private String customerID;
 
+    @FXML
+    private TextField roomField;
+
     public void initialize() {
 
         //Connect label with its textfield
@@ -116,6 +119,14 @@ public class formController {
         ObservableList<String> options = FXCollections.observableArrayList(locales);
         cCodeCB.setItems(options);
         cCodeCB.addEventFilter(KeyEvent.KEY_PRESSED, event -> manualMnemonic(event));
+
+        //Number formatting for room number (max 3 digits)
+        roomField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d{0,3}")) {
+                // If the new input is not a digit, replace it with an empty string
+                roomField.setText(oldValue);
+            }
+        });
     }
     
     public void manualMnemonic(KeyEvent event)
