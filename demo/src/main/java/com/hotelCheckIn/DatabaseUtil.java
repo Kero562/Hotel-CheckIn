@@ -107,6 +107,7 @@ public class DatabaseUtil {
 
     // Add customer to database
     public String addCustomer(String firstName, String lastName, String phone, String email) {
+        // https://stackoverflow.com/questions/4267475/generating-8-character-only-uuids
         String customerID = UUID.randomUUID().toString();
         String sql = "INSERT INTO customer (customer_id, first_name, last_name, phone, email) VALUES ('" + customerID + "', '" + firstName + "', '" + lastName + "', '" + phone + "', '" + email + "')";
         try {
