@@ -286,6 +286,10 @@ public class controller {
                 Scene newScene = new Scene(root);
                 newStage.setScene(newScene);
 
+                //send customer ID to form controller
+                formController controller = loader.getController();
+                controller.passCustomerID(textField2.getText());
+
                 newStage.setResizable(false);
                 newStage.show();
             } catch (Exception e)

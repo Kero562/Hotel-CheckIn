@@ -9,8 +9,6 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -81,6 +79,8 @@ public class formController {
 
     private boolean bedLabelAdded = false;
     private boolean keyLabelAdded = false;
+
+    private String customerID;
 
     public void initialize() {
 
@@ -260,11 +260,18 @@ public class formController {
         if (serviceExtraBed == 1 && !bedLabelAdded)
         {
             serviceBox.getChildren().add(new Label("- Extra Bed"));
+            bedLabelAdded = true;
         }
 
         if (serviceDigitalKey == 1 && !keyLabelAdded)
         {
             serviceBox.getChildren().add(new Label("- Digital Key Access"));
+            keyLabelAdded = true;
         }
+    }
+
+    public void passCustomerID(String id)
+    {
+        customerID = id;
     }
 }
