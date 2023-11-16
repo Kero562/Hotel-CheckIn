@@ -1,16 +1,22 @@
 package com.hotelCheckIn;
 
 public class Customer {
+   private int customerID;
    private String firstName;
    private String lastName;
    private String emailAddress;
    private int phoneNumber;
 
-   Customer(String firstName, String lastName, String emailAddress, int phoneNumber) {
+   Customer(int customerID, String firstName, String lastName, String emailAddress, int phoneNumber) {
+      this.customerID = customerID;
       this.firstName = firstName;
       this.lastName = lastName;
       this.emailAddress = emailAddress;
       this.phoneNumber = phoneNumber;
+   }
+
+   public int getCustomerID(){
+      return this.customerID;
    }
 
    public String getFullName() {
@@ -31,6 +37,10 @@ public class Customer {
 
    public int getPhoneNumber() {
       return this.phoneNumber;
+   }
+
+   public void setCustomerID(int customerID){
+      this.customerID = customerID;
    }
 
    public void setFirstName(String firstName) {
