@@ -3,18 +3,23 @@ package com.hotelCheckIn;
 import java.time.LocalDateTime;
 
 public class Reservation {
-   private float cost;
+   private int customerID;
    private LocalDateTime startTime;
    private LocalDateTime endTime;
-   // TODO: incorporate Room object
+   private int roomNumber;
+   private String reservationStatus;
 
-   Reservation(LocalDateTime startTime, LocalDateTime endTime) {
+   Reservation(int customerID, LocalDateTime startTime, LocalDateTime endTime, int roomNumber,
+         String reservationStatus) {
+      this.customerID = customerID;
       this.startTime = startTime;
       this.endTime = endTime;
+      this.roomNumber = roomNumber;
+      this.reservationStatus = reservationStatus;
    }
 
-   public float getCost() {
-      return this.cost;
+   public int getCustomerID() {
+      return this.customerID;
    }
 
    public LocalDateTime getStartTime() {
@@ -25,6 +30,18 @@ public class Reservation {
       return this.endTime;
    }
 
+   public int getRoomNumber() {
+      return this.roomNumber;
+   }
+
+   public String getReservationStatus() {
+      return this.reservationStatus;
+   }
+
+   public void setCustomerID(int customerID) {
+      this.customerID = customerID;
+   }
+
    public void setStartTime(LocalDateTime startTime) {
       this.startTime = startTime;
    }
@@ -33,7 +50,11 @@ public class Reservation {
       this.endTime = endTime;
    }
 
-   public void setRoom() {
-      // TODO: add set room code
+   public void setRoomNumber(int roomNumber) {
+      this.roomNumber = roomNumber;
+   }
+
+   public void setReservationStatus(String reservationStatus) {
+      this.reservationStatus = reservationStatus;
    }
 }
