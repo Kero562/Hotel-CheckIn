@@ -13,16 +13,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.ChoiceBoxListCell;
 import javafx.scene.control.skin.ComboBoxListViewSkin;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -88,6 +92,12 @@ public class formController {
     //For service scene preservation across invokes
     private Stage serviceStage;
     private Scene serviceScene;
+
+    //Horizontal boxes added within the services vertical box
+    HBox bedBox;
+    HBox keyBox;
+
+    ObservableList<String> urgencyList = FXCollections.observableArrayList("Select Urgency", "Low", "Normal", "High");
 
     public void initialize() {
 
@@ -226,6 +236,7 @@ public class formController {
         }
         //
 
+        //Form completion
         if (formComplete)
         {
             DatabaseUtil dbManager = new DatabaseUtil();
@@ -259,7 +270,7 @@ public class formController {
                 serviceExtraBed = (byte) json.getInt("bedChoice");
                 serviceDigitalKey = (byte) json.getInt("digitalKeyChoice");
 
-                //Add/remove labels accordingly
+                //Add/remove services (HBoxes with components inside) accordingly
                 manageServiceBox();
             });
 
@@ -278,19 +289,77 @@ public class formController {
     {
         if (serviceExtraBed == 1 && !bedLabelAdded)
         {
-            serviceBox.getChildren().add(new Label("- Extra Bed"));
+            bedBox = new HBox(6);
+            bedBox.setAlignment(Pos.CENTER);
+            Label bedLabel = new Label("- Extra Bed");
+            bedLabel.getStyleClass().add("serviceLabels");
+            serviceBox.getChildren().add(bedBox);
+            bedBox.getChildren().add(bedLabel);
+
+            ChoiceBox<String> urgencyBox = new ChoiceBox<>(urgencyList);
+            handleBoxSelection(urgencyBox);
+
+            bedBox.getChildren().add(urgencyBox);
+
             bedLabelAdded = true;
+        } else if (serviceExtraBed == 0 && bedLabelAdded)
+        {
+            serviceBox.getChildren().remove(bedBox);
+            bedLabelAdded = false;
         }
 
         if (serviceDigitalKey == 1 && !keyLabelAdded)
         {
-            serviceBox.getChildren().add(new Label("- Digital Key Access"));
+            keyBox = new HBox(6);
+            keyBox.setAlignment(Pos.CENTER);
+            Label keyLabel = new Label("- Digital Key Access");
+            keyLabel.getStyleClass().add("serviceLabels");
+            serviceBox.getChildren().add(keyBox);
+            keyBox.getChildren().add(keyLabel);
+
+            ChoiceBox<String> urgencyBox = new ChoiceBox<>(urgencyList);
+            handleBoxSelection(urgencyBox);
+
+            keyBox.getChildren().add(urgencyBox);
+
             keyLabelAdded = true;
+        } else if (serviceDigitalKey == 0 && keyLabelAdded)
+        {
+            serviceBox.getChildren().remove(keyBox);
+            keyLabelAdded = false;
         }
     }
 
     public void passCustomerID(String id)
     {
         customerID = Integer.parseInt(id);
+    }
+
+    private boolean selectionCancelled = false;
+    private void handleBoxSelection(ChoiceBox<String> box)
+    {
+        box.getSelectionModel().selectFirst();
+
+        box.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if ("Select Urgency".equals(newValue) && !selectionCancelled)
+            {
+                box.getSelectionModel().select(oldValue);
+            }
+            else if (!"Select Urgency".equals(newValue)){
+                urgencyList.remove("Select Urgency");
+            }
+        });
+
+        box.setOnHidden(event -> {
+            if (box.getSelectionModel().getSelectedIndex() == 0)
+            {
+                selectionCancelled = true;
+                box.getSelectionModel().select(0);
+            }
+        });
+
+        box.setOnShown(event -> {
+            selectionCancelled = false;
+        });
     }
 }

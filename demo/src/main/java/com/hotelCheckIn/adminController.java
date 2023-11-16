@@ -32,6 +32,7 @@ public class adminController {
     @FXML
     private PasswordField passField;
 
+    //Upon successful login, load the requests page. Otherwise shake the screen and give an error (beep) sound
     public void adminLogin() throws IOException
     {
         Stage currentStage = (Stage) nameField.getScene().getWindow();
@@ -55,6 +56,7 @@ public class adminController {
         }
     }
 
+    //Shake effect
     private void shakeStage(Stage stage)
     {
         double originalX = stage.getX();

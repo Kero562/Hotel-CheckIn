@@ -141,3 +141,8 @@
 .adminLogin:pressed{
     -fx-background-color: #1e5f25;;
 }
+
+.serviceLabels{
+    -fx-font-size: 18px;
+    -fx-text-fill: #2ecc71;
+}

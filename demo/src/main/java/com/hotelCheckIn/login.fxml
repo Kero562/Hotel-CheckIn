@@ -73,7 +73,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="21.0" prefWidth="427.0">
                            <children>
-                              <Label fx:id="completionText" alignment="CENTER" prefHeight="22.0" prefWidth="194.0" textFill="#20d909" HBox.hgrow="ALWAYS">
+                              <Label fx:id="completionText" alignment="CENTER" prefHeight="40.0" prefWidth="398.0" textFill="#20d909" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Playball" size="18.0" />
                                  </font>

@@ -100,7 +100,7 @@ public class controller {
         });
         //
 
-        /*
+        
         //Making Booking ID textfield numbers only
         textField2.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
@@ -108,7 +108,7 @@ public class controller {
                 textField2.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-        */
+        
         
         //make transparent pane fill the screen for dragging
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
