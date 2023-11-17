@@ -1,25 +1,74 @@
 package com.hotelCheckIn;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import org.apache.commons.lang3.RandomStringUtils;
 
 public class DatabaseUtil {
     // Initialize Database file
     public void initializeDB() {
-        String url = "jdbc:sqlite:.\\demo\\src\\main\\java\\com\\hotelCheckIn\\db\\hotel.db";
-        try {
-            Connection conn = DriverManager.getConnection(url);
-            if (conn != null) {
-                DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("Database has been created.");
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        //String url = "jdbc:sqlite:.\\demo\\src\\main\\java\\com\\hotelCheckIn\\db\\hotel.db";
+        Connection conn = connect();
+        if (conn != null) {
+            //DatabaseMetaData meta = conn.getMetaData();
+            //System.out.println("The driver name is " + meta.getDriverName());
+            System.out.println("[Info] Database accessible.");
+
+            String customer = "CREATE TABLE IF NOT EXISTS customer (\n"
+            + "	customer_id integer PRIMARY KEY,\n"
+            + "	first_name text NOT NULL,\n"
+            + "	last_name text NOT NULL,\n"
+            + "	phone text NOT NULL UNIQUE,\n"
+            + "	email text NOT NULL UNIQUE\n"
+            + ");";
+            createTable("customer", customer);
+
+            String admin = "CREATE TABLE IF NOT EXISTS admin (\n"
+            + "	admin_id integer PRIMARY KEY,\n"
+            + "	username text NOT NULL UNIQUE,\n"
+            + "	password text NOT NULL UNIQUE\n"
+            + ");";
+            createTable("admin", admin);
+
+            String room = "CREATE TABLE IF NOT EXISTS rooms (\n"
+            + "	room_number integer PRIMARY KEY,\n"
+            + " capacity integer NOT NULL,\n"
+            + " daily_rate real NOT NULL,\n"
+            + " room_type text NOT NULL,\n"
+            + " room_status text NOT NULL\n"
+            + ");";
+            createTable("rooms", room);
+
+            String reservation = "CREATE TABLE IF NOT EXISTS reservation (\n"
+            + " customer_id integer NOT NULL,\n"
+            + " room_number integer NOT NULL,\n"
+            + " check_in_date integer NOT NULL,\n"
+            + " check_out_date integer NOT NULL,\n"
+            + " reservation_status text NOT NULL,\n"
+            + " PRIMARY KEY (customer_id, room_number),\n"
+            + " FOREIGN KEY (customer_id) REFERENCES customer (customer_id),\n"
+            + " FOREIGN KEY (room_number) REFERENCES rooms (room_number)\n"
+            + ");";
+            createTable("reservation", reservation);
+
+            String service = "CREATE TABLE IF NOT EXISTS service (\n"
+            + " service_id text PRIMARY KEY,\n"
+            + " room_number integer NOT NULL,\n"
+            + " type text NOT NULL,\n"
+            + " description text NOT NULL,\n"
+            + " urgency text NOT NULL,\n"
+            + " time_created text NOT NULL,\n"
+            + " service_status text NOT NULL,\n"
+            + " assigned_employee text NOT NULL,\n"
+            + " FOREIGN KEY (room_number) REFERENCES rooms (room_number)\n"
+            + ");";
+            createTable("service", service);
+        }
+        else {
+            System.out.println("[Error] Database not accessible.");
         }
     }
 
@@ -35,14 +84,42 @@ public class DatabaseUtil {
         return conn;
     }
 
-    // Initialize tables
     public void executeStatement(String sql) {
         try {
             Connection conn = this.connect();
             conn.createStatement().execute(sql);
-            System.out.println("Table has been created.");
+            System.out.println("Executed Statement.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public void createTable(String tableName, String sql) {
+        if (!hasTable(tableName)) {
+            executeStatement(sql);
+            System.out.println("[Info] Table " + tableName + " created.");
+        }
+        else {
+            System.out.println("[Info] Table " + tableName + " already exists.");
+        }
+    }
+
+    private boolean hasTable(String tableName) {
+        try {
+            Connection conn = this.connect();
+            String sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='" + tableName + "'";
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+            String name = rs.getString("name");
+            if (name != null) {
+                System.out.println("Table " + tableName + " exists.");
+                return true;
+            } else {
+                System.out.println("Table " + tableName + " does not exist.");
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 
@@ -59,7 +136,6 @@ public class DatabaseUtil {
             long checkInDate = reservationTable.getLong("check_in_date");
             long checkOutDate = reservationTable.getLong("check_out_date");
 
-            //Write code to get all the reservations where the customer_id is equal to the customerId variable and iterate through all the reservations to check if any have status "Pending", if there is at least one reservation with status "Pending" then set a variable to true, otherwise set it to false
             boolean hasPendingReservation = hasPendingReservation(customerId);
 
 
@@ -143,10 +219,7 @@ public class DatabaseUtil {
         }
     }
 
-    // Add customer to database
     public int addCustomer(String firstName, String lastName, String phone, String email) {
-        // https://stackoverflow.com/questions/4267475/generating-8-character-only-uuids
-        //String customerID = UUID.randomUUID().toString();
         int customerId = Integer.parseInt(RandomStringUtils.randomNumeric(8)); 
         String sql = "INSERT INTO customer (customer_id, first_name, last_name, phone, email) VALUES ('" + customerId + "', '" + firstName + "', '" + lastName + "', '" + phone + "', '" + email + "')";
         try {
@@ -185,7 +258,6 @@ public class DatabaseUtil {
     }
 
     private void setReservationStatus (int customerId, int roomNumber, String status) {
-        // Checkin function for room and calls this func
         String sql = "UPDATE reservation SET reservation_status = '" + status + "' WHERE customer_id = '" + customerId + "' AND room_number = '" + roomNumber + "'";
         try {
             Connection conn = this.connect();
