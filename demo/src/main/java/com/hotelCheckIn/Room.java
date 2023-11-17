@@ -1,18 +1,16 @@
 package com.hotelCheckIn;
 
-public abstract class Room {
+public class Room {
    private int roomNumber;
    private int capacity;
    private float dailyRate;
+   private String roomType;
 
    private Room(int roomNumber, int capacity, float dailyRate) {
       this.roomNumber = roomNumber;
       this.capacity = capacity;
       this.dailyRate = dailyRate;
    }
-
-   //Implemented across all subclasses
-   public abstract String getRoomType();
 
    public int getRoomNumber() {
       return this.roomNumber;
@@ -38,37 +36,8 @@ public abstract class Room {
       this.dailyRate = dailyRate;
    }
 
-   public static class SingleRoom extends Room {
-
-      public SingleRoom(int roomNumber, int capacity, float dailyRate) {
-         super(roomNumber, capacity, dailyRate);
-      }
-
-      public String getRoomType() {
-         return "Single";
-      }
-   }
-
-   public static class DoubleRoom extends Room {
-
-      public DoubleRoom(int roomNumber, int capacity, float dailyRate) {
-         super(roomNumber, capacity, dailyRate);
-      }
-
-      public String getRoomType() {
-         return "Double";
-      }
-   }
-
-   public static class TwinRoom extends Room {
-
-      public TwinRoom(int roomNumber, int capacity, float dailyRate) {
-         super(roomNumber, capacity, dailyRate);
-   }
-
-      public String getRoomType() {
-         return "Twin";
-      }
-      
+   public String getRoomType()
+   {
+      return this.roomType;
    }
 }
