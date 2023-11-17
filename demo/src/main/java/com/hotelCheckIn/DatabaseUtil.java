@@ -5,7 +5,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.UUID;
 import org.apache.commons.lang3.RandomStringUtils;
 
 public class DatabaseUtil {
@@ -48,7 +47,7 @@ public class DatabaseUtil {
     }
 
     // Check customer reservation
-    public boolean isValidReservation(String lastName, String strCustomerId) {        
+    public boolean isValidLogin(String lastName, String strCustomerId) {        
         try {
             int customerId = Integer.parseInt(strCustomerId);
             Connection conn = this.connect();
@@ -60,9 +59,17 @@ public class DatabaseUtil {
             long checkInDate = reservationTable.getLong("check_in_date");
             long checkOutDate = reservationTable.getLong("check_out_date");
 
-            if (checkInDate < System.currentTimeMillis() && checkOutDate > System.currentTimeMillis() && isValidCustomer) {
+            //Write code to get all the reservations where the customer_id is equal to the customerId variable and iterate through all the reservations to check if any have status "Pending", if there is at least one reservation with status "Pending" then set a variable to true, otherwise set it to false
+            boolean hasPendingReservation = hasPendingReservation(customerId);
+
+
+            if (checkInDate < System.currentTimeMillis() && checkOutDate > System.currentTimeMillis() && isValidCustomer && hasPendingReservation) {
                 System.out.println("Valid reservation.");
                 return true;
+            }
+            else if (!hasPendingReservation) {
+                System.out.println("Customer does not have a pending reservation.");
+                return false;
             }
             else if (checkInDate > System.currentTimeMillis() && checkOutDate > System.currentTimeMillis() && isValidCustomer) {
                 System.out.println("Reservation is not valid yet.");
@@ -76,6 +83,27 @@ public class DatabaseUtil {
                 System.out.println("Invalid reservation.");
                 return false;
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean hasPendingReservation(int customerId) {
+        try {
+            Connection conn = this.connect();
+            String reservationQuery = "SELECT * FROM reservation r WHERE r.customer_id = '" + customerId + "'";
+            ResultSet reservationTable = conn.createStatement().executeQuery(reservationQuery);
+            do {
+                String reservationStatus = reservationTable.getString("reservation_status");
+                if (reservationStatus.equals("Pending")) {
+                    System.out.println("Customer has a pending reservation.");
+                    return true;
+                }
+            } while (reservationTable.next());
+
+            System.out.println("Customer does not have a pending reservation.");
+            return false;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;

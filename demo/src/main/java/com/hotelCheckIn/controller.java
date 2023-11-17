@@ -256,11 +256,8 @@ public class controller {
     public void checkWindow()
     {
         DatabaseUtil dbManager = new DatabaseUtil();
-        //Temporary Verification
-        // Amend this to check the status
-        if (!dbManager.isValidReservation(textField1.getText(), textField2.getText()))
+        if (!dbManager.isValidLogin(textField1.getText(), textField2.getText()))
         {
-            // Check if the user is checked in or not here with nested if using the code below and tell the user what the status is
             completionText.setStyle("-fx-text-fill: red;");
             completionText.setText("Loading Failed - No booking found");
         }

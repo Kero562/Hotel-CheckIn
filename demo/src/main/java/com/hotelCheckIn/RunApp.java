@@ -62,19 +62,19 @@ public class RunApp {
         + ");";
         dbManager.executeStatement(service);
 
-        // Current Customer ID/UUID: 563079
+        // Current Customer ID/UUID: 80253244
         int customerId = dbManager.addCustomer("John", "Doe", "1234567890", "John.Doe@gmail.com");
         if (customerId == -1) {
             System.out.println("Customer not added skipping room and reservation.");
         } else {
-            int roomNumber = dbManager.addRoom(101, 2, 100.00, "Standard", "Occupied");
+            int roomNumber = dbManager.addRoom(101, 2, 100.00, "SingleRoom", "Empty");
             if (roomNumber == -1) {
                 System.out.println("Room not added skipping reservation.");
             } else {
                 // Maybe create a view for this
                 // https://stackoverflow.com/questions/8753959/round-a-floating-point-number-to-the-next-integer-value-in-java
                 // totalCost = (int) Math.ceil((checkout-checkin)/3600) * dailyRate
-                dbManager.addReservation(customerId, roomNumber, 1698867509047L, 1704013122000L, "Not Checked In");
+                dbManager.addReservation(customerId, roomNumber, 1698867509047L, 1704013122000L, "Pending");
             }
         }
 
