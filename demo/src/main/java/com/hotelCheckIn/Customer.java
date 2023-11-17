@@ -1,11 +1,14 @@
 package com.hotelCheckIn;
 
+import java.util.List;
+
 public class Customer {
    private int customerID;
    private String firstName;
    private String lastName;
    private String emailAddress;
    private int phoneNumber;
+   private List<Reservation> reservations;
 
    Customer(int customerID, String firstName, String lastName, String emailAddress, int phoneNumber) {
       this.customerID = customerID;

@@ -266,6 +266,9 @@ public class controller {
         }
 
         else {
+            //Get the Customer object
+            //Customer customer = new Customer(textField1.getText(), null, textField2.getText(), null, 0)
+            //
             Stage currentStage = (Stage) checkInButton.getScene().getWindow();
             Scene scene = checkInButton.getScene();
 
