@@ -1,19 +1,18 @@
 package com.hotelCheckIn;
 
-public class Room {
+public abstract class Room {
    private int roomNumber;
    private int capacity;
    private float dailyRate;
-   private String roomType;
-   private String roomStatus;
 
-   Room(int roomNumber, int capacity, float dailyRate, String roomType, String roomStatus) {
+   private Room(int roomNumber, int capacity, float dailyRate) {
       this.roomNumber = roomNumber;
       this.capacity = capacity;
       this.dailyRate = dailyRate;
-      this.roomType = roomType;
-      this.roomStatus = roomStatus;
    }
+
+   //Implemented across all subclasses
+   public abstract String getRoomType();
 
    public int getRoomNumber() {
       return this.roomNumber;
@@ -25,14 +24,6 @@ public class Room {
 
    public float getDailyRate() {
       return this.dailyRate;
-   }
-
-   public String getRoomType() {
-      return this.roomType;
-   }
-
-   public String getRoomStatus() {
-      return this.roomStatus;
    }
 
    public void setRoomNumber(int roomNumber) {
@@ -47,11 +38,37 @@ public class Room {
       this.dailyRate = dailyRate;
    }
 
-   public void setRoomType(String roomType) {
-      this.roomType = roomType;
+   public static class SingleRoom extends Room {
+
+      public SingleRoom(int roomNumber, int capacity, float dailyRate) {
+         super(roomNumber, capacity, dailyRate);
+      }
+
+      public String getRoomType() {
+         return "Single";
+      }
    }
 
-   public void setRoomStatus(String roomStatus) {
-      this.roomStatus = roomStatus;
+   public static class DoubleRoom extends Room {
+
+      public DoubleRoom(int roomNumber, int capacity, float dailyRate) {
+         super(roomNumber, capacity, dailyRate);
+      }
+
+      public String getRoomType() {
+         return "Double";
+      }
+   }
+
+   public static class TwinRoom extends Room {
+
+      public TwinRoom(int roomNumber, int capacity, float dailyRate) {
+         super(roomNumber, capacity, dailyRate);
+   }
+
+      public String getRoomType() {
+         return "Twin";
+      }
+      
    }
 }
