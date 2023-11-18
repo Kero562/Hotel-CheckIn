@@ -1,6 +1,10 @@
 package com.hotelCheckIn;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Customer {
    private int customerID;
@@ -16,6 +20,34 @@ public class Customer {
       this.lastName = lastName;
       this.emailAddress = emailAddress;
       this.phoneNumber = phoneNumber;
+   }
+
+   Customer(int customerID) {
+      this.customerID = customerID;
+      String customerQuery = "SELECT * FROM customer WHERE customer_id = " + this.customerID;
+      // Connect to the database
+      DatabaseUtil dbManager = new DatabaseUtil();
+      Connection conn = dbManager.connect();
+      try {
+         // Execute the query
+         ResultSet rs = conn.createStatement().executeQuery(customerQuery);
+         // Get the results
+         this.firstName = rs.getString("first_name");
+         this.lastName = rs.getString("last_name");
+         this.emailAddress = rs.getString("email");
+         this.phoneNumber = rs.getInt("phone");
+
+         // Get the reservations
+         this.reservations = new ArrayList<Reservation>();
+         ResultSet rs2 = conn.createStatement().executeQuery("SELECT * FROM reservation WHERE customer_id = " + this.customerID);
+         while (rs2.next()) {
+            //Reservation reservation = new Reservation(rs2.getInt("customer_id"), rs2.getLong("check_in_date"), rs2.getLong("check_out_date"), rs2.getString("reservation_status"));
+            Reservation reservation = new Reservation(rs2.getInt("customer_id"));
+            this.reservations.add(reservation);
+         }
+      } catch (SQLException e) {
+         System.out.println(e.getMessage());
+      }
    }
 
    public int getCustomerID(){
@@ -42,6 +74,10 @@ public class Customer {
       return this.phoneNumber;
    }
 
+   public List<Reservation> getReservations() {
+      return this.reservations;
+   }
+
    public void setCustomerID(int customerID){
       this.customerID = customerID;
    }
@@ -60,5 +96,17 @@ public class Customer {
 
    public void setPhoneNumber(int phoneNumber) {
       this.phoneNumber = phoneNumber;
+   }
+
+   @Override
+   public String toString() {
+      return "Customer{" +
+              "customerID=" + this.customerID +
+              ", firstName='" + this.firstName + '\'' +
+              ", lastName='" + this.lastName + '\'' +
+              ", emailAddress='" + this.emailAddress + '\'' +
+              ", phoneNumber=" + this.phoneNumber + '\'' +
+              ", reservations=\n\t" + this.reservations +
+              "\n}";
    }
 }

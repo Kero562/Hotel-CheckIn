@@ -263,9 +263,10 @@ public class controller {
         }
 
         else {
-            //Get the Customer object
-            //Customer customer = new Customer(textField1.getText(), null, textField2.getText(), null, 0)
-            //
+            Customer customer = new Customer(Integer.parseInt(textField2.getText()));
+            // DEBUG Output
+            System.out.println("[Info] Customer Object: \n" + customer);
+
             Stage currentStage = (Stage) checkInButton.getScene().getWindow();
             Scene scene = checkInButton.getScene();
 

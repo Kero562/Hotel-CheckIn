@@ -76,7 +76,7 @@ public class DatabaseUtil {
     }
 
     // private method to connect to the database
-    private Connection connect() {
+    public Connection connect() {
         // SQLite connection string to the database file
         String url = "jdbc:sqlite:.\\demo\\src\\main\\java\\com\\hotelCheckIn\\db\\hotel.db";
         Connection conn = null;
@@ -90,7 +90,7 @@ public class DatabaseUtil {
         return conn;
     }
 
-    // Execute any generic SQL statement
+    // Execute any generic SQL statement that does require a return value
     public void executeStatement(String sql) {
         try {
             Connection conn = this.connect();
@@ -207,13 +207,14 @@ public class DatabaseUtil {
             String reservationQuery = "SELECT * FROM reservation r WHERE r.customer_id = '" + customerId + "'";
             ResultSet reservationTable = conn.createStatement().executeQuery(reservationQuery);
             // Loop through all the reservations associated with the passed customerId anc check them
-            do {
+            while (reservationTable.next()) {
+                // Get the reservation status
                 String reservationStatus = reservationTable.getString("reservation_status");
                 if (reservationStatus.equals("Pending")) {
                     System.out.println("[Info] Customer has a pending reservation.");
                     return true;
                 }
-            } while (reservationTable.next());
+            }
 
             // If the loop completes without finding a pending reservation then the customer does not have a pending reservation
             System.out.println("[Info] Customer does not have a pending reservation.");
