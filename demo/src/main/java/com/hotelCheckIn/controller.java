@@ -291,7 +291,7 @@ public class controller {
 
                 //send customer ID to form controller
                 formController controller = loader.getController();
-                controller.passCustomerID(textField2.getText());
+                controller.passCustomer(customer);
 
                 newStage.setResizable(false);
                 newStage.show();

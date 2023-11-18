@@ -83,7 +83,7 @@ public class formController {
     private boolean bedLabelAdded = false;
     private boolean keyLabelAdded = false;
 
-    private int customerID;
+    private Customer customer;
 
     @FXML
     private TextField roomField;
@@ -240,7 +240,7 @@ public class formController {
         {
             DatabaseUtil dbManager = new DatabaseUtil();
             int roomNumber = Integer.parseInt(roomField.getText());
-            dbManager.checkIn(customerID, roomNumber);
+            dbManager.checkIn(customer.getCustomerID(), roomNumber);
         }
     }
 
@@ -329,9 +329,9 @@ public class formController {
         }
     }
 
-    public void passCustomerID(String id)
+    public void passCustomer(Customer customer)
     {
-        customerID = Integer.parseInt(id);
+        this.customer = customer;
     }
 
     private boolean selectionCancelled = false;

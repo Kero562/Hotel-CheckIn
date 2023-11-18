@@ -10,50 +10,64 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="601.0" style="-fx-background-color: linear-gradient(to right, #000000, #6e4514, #000000);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hotelCheckIn.modificationController">
+<AnchorPane fx:id="mainBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#sceneClicked" prefHeight="412.0" prefWidth="601.0" style="-fx-background-color: linear-gradient(to right, #000000, #6e4514, #000000);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hotelCheckIn.modificationController">
    <children>
       <AnchorPane layoutY="-7.0" prefHeight="67.0" prefWidth="601.0" style="-fx-background-color: #ab6a15;">
          <children>
-            <Label fx:id="title" layoutX="67.0" layoutY="23.0" style="-fx-font-weight: 700;" text="Reservation Modifications" textFill="WHITE">
+            <Label fx:id="title" layoutX="177.0" layoutY="19.0" style="-fx-font-weight: 700;" text="Reservation Modifications" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <ImageView fx:id="cabinImage" fitHeight="53.0" fitWidth="53.0" layoutX="8.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@cabin.png" />
-               </image>
-            </ImageView>
          </children>
       </AnchorPane>
-      <Button fx:id="submitButton" layoutX="245.0" layoutY="431.0" mnemonicParsing="false" onAction="#submit" prefHeight="30.0" prefWidth="111.0" style="-fx-background-color: #f5f5f5; -fx-shape: &quot;M 100 400 L 100 400 L 400 400 L 400 400 L 400 400 Q 450 350 400 300 Q 250 300 100 300 Q 50 350 100 400 &quot;;" text="Submit" />
-      <DatePicker fx:id="dateModifier" layoutX="35.0" layoutY="266.0" />
-      <Label fx:id="modifyDate" layoutX="35.0" layoutY="233.0" style="-fx-font-weight: 675;" text="Modify Check-out Date" textFill="WHITE">
+      <Button fx:id="submitButton" layoutX="246.0" layoutY="363.0" mnemonicParsing="false" onAction="#submit" prefHeight="30.0" prefWidth="111.0" style="-fx-background-color: #f5f5f5; -fx-shape: &quot;M 100 400 L 100 400 L 400 400 L 400 400 L 400 400 Q 450 350 400 300 Q 250 300 100 300 Q 50 350 100 400 &quot;;" text="Submit" />
+      <Label fx:id="modifyDate" layoutX="405.0" layoutY="76.0" style="-fx-font-weight: 675;" text="Modify Check-out Date" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <RadioButton fx:id="yesButton" layoutX="35.0" layoutY="114.0" mnemonicParsing="false" text="Yes" textFill="WHITE">
-         <toggleGroup>
-            <ToggleGroup fx:id="extraBed" />
-         </toggleGroup>
-      </RadioButton>
-      <RadioButton fx:id="noButton" layoutX="94.0" layoutY="114.0" mnemonicParsing="false" selected="true" text="No" textFill="WHITE" toggleGroup="$extraBed" />
-      <Label fx:id="extraBedQuestion" layoutX="35.0" layoutY="76.0" style="-fx-font-weight: 675;" text="Request Extra Bed" textFill="WHITE">
+      <Label fx:id="extraBedQuestion" layoutX="35.0" layoutY="76.0" style="-fx-font-weight: 675;" text="Request Mattress" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <RadioButton fx:id="yesButton1" layoutX="35.0" layoutY="195.0" mnemonicParsing="false" text="Yes" textFill="WHITE">
-         <toggleGroup>
-            <ToggleGroup fx:id="digitalKey" />
-         </toggleGroup>
-      </RadioButton>
-      <RadioButton fx:id="noButton1" layoutX="94.0" layoutY="195.0" mnemonicParsing="false" selected="true" text="No" textFill="WHITE" toggleGroup="$digitalKey" />
-      <Label fx:id="digitalKeyAccess" layoutX="35.0" layoutY="157.0" style="-fx-font-weight: 675;" text="Request Digital Key Access" textFill="WHITE">
+      <Label fx:id="digitalKeyAccess" layoutX="190.0" layoutY="76.0" style="-fx-font-weight: 675;" text="Request Digital Key Access" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
+      <AnchorPane fx:id="optionsPane" layoutX="1.0" layoutY="231.0" prefHeight="132.0" prefWidth="601.0">
+         <children>
+            <RadioButton fx:id="yesButton1" layoutX="160.0" layoutY="73.0" mnemonicParsing="false" text="Yes" textFill="WHITE" visible="false">
+               <toggleGroup>
+                  <ToggleGroup fx:id="digitalKey" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="noButton1" layoutX="388.0" layoutY="73.0" mnemonicParsing="false" selected="true" text="No" textFill="WHITE" toggleGroup="$digitalKey" visible="false" />
+            <RadioButton fx:id="noButton" layoutX="388.0" layoutY="73.0" mnemonicParsing="false" selected="true" text="No" textFill="WHITE" visible="false">
+               <toggleGroup>
+                  <ToggleGroup fx:id="extraBed" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="yesButton" layoutX="160.0" layoutY="73.0" mnemonicParsing="false" text="Yes" textFill="WHITE" toggleGroup="$extraBed" visible="false" />
+            <DatePicker fx:id="dateModifier" layoutX="214.0" layoutY="23.0" visible="false" />
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="mattressView" fitHeight="104.0" fitWidth="130.0" layoutX="48.0" layoutY="116.0" onMouseClicked="#mattressClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/mattress.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="keyView" fitHeight="104.0" fitWidth="130.0" layoutX="250.0" layoutY="116.0" onMouseClicked="#keyClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/digitalkey.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="checkOutView" fitHeight="104.0" fitWidth="130.0" layoutX="441.0" layoutY="116.0" onMouseClicked="#checkOutClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/checkout.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
