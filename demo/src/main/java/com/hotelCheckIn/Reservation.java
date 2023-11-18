@@ -6,15 +6,15 @@ public class Reservation {
    private int customerID;
    private LocalDateTime startTime;
    private LocalDateTime endTime;
-   private int roomNumber;
    private String reservationStatus;
+   private Room room;
 
-   Reservation(int customerID, LocalDateTime startTime, LocalDateTime endTime, int roomNumber,
+   Reservation(int customerID, LocalDateTime startTime, LocalDateTime endTime, Room room,
          String reservationStatus) {
       this.customerID = customerID;
       this.startTime = startTime;
       this.endTime = endTime;
-      this.roomNumber = roomNumber;
+      this.room = room;
       this.reservationStatus = reservationStatus;
    }
 
@@ -31,7 +31,7 @@ public class Reservation {
    }
 
    public int getRoomNumber() {
-      return this.roomNumber;
+      return room.getRoomNumber();
    }
 
    public String getReservationStatus() {
@@ -51,7 +51,7 @@ public class Reservation {
    }
 
    public void setRoomNumber(int roomNumber) {
-      this.roomNumber = roomNumber;
+      room.setRoomNumber(roomNumber);
    }
 
    public void setReservationStatus(String reservationStatus) {
