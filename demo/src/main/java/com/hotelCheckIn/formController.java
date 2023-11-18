@@ -9,8 +9,10 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -31,6 +33,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import netscape.javascript.JSObject;
 
 import java.awt.Toolkit;
 import java.io.File;
@@ -98,6 +101,15 @@ public class formController {
 
     ObservableList<String> urgencyList = FXCollections.observableArrayList("Select Urgency", "Low", "Normal", "High");
 
+    //For console and its log function (console newly created member) -- mimics the console.log JS but not actually it
+    ConsoleBridge conBridge = new ConsoleBridge();
+
+    //For javafxInterface and its receiveClassName function (javafxInterface newly created member) -- passing the controller so I can change the Label within the class
+    JavaBridge javaBridge = new JavaBridge(this);
+
+    @FXML
+    private Label typeConfLabel;
+
     public void initialize() {
 
         //Connect label with its textfield
@@ -116,6 +128,15 @@ public class formController {
 
         try {
             engine.load(file.toURI().toURL().toString());
+            engine.setJavaScriptEnabled(true);
+            engine.getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {
+                if (newState == Worker.State.SUCCEEDED)
+                {
+                    JSObject window = (JSObject) engine.executeScript("window");
+                    window.setMember("javafxInterface", javaBridge);
+                    window.setMember("console", conBridge);
+                }
+            });
         } catch (MalformedURLException e) {
             engine.load("<h1>File not found</h1>");
         }
@@ -140,7 +161,30 @@ public class formController {
             }
         });
     }
-    
+
+    //Either one can be used -- Keeping both to show that you can create your own "function" (javafxInterface) to bridge from JS
+    //Controller passing explained at line 107
+    public static class JavaBridge {
+        private formController controller;
+
+        JavaBridge(formController controller)
+        {
+            this.controller = controller;
+        }
+        public void receiveID(String className)
+        {
+            controller.typeConfLabel.setText(Character.toUpperCase(className.charAt(0)) + className.substring(1)); //capitalized first letter + the rest
+        }
+    }
+
+    public class ConsoleBridge {
+        public void log(String message)
+        {
+            System.out.println(message);
+        }
+    }
+    //
+
     public void manualMnemonic(KeyEvent event)
     {
         if (event.getCode().isLetterKey()) {
