@@ -51,7 +51,7 @@
                </toggleGroup>
             </RadioButton>
             <RadioButton fx:id="yesButton" layoutX="160.0" layoutY="73.0" mnemonicParsing="false" text="Yes" textFill="WHITE" toggleGroup="$extraBed" visible="false" />
-            <DatePicker fx:id="dateModifier" layoutX="214.0" layoutY="23.0" visible="false" />
+            <DatePicker fx:id="dateModifier" layoutX="214.0" layoutY="23.0" styleClass="date-picker" stylesheets="@style.css" visible="false" />
          </children>
       </AnchorPane>
       <ImageView fx:id="mattressView" fitHeight="104.0" fitWidth="130.0" layoutX="48.0" layoutY="116.0" onMouseClicked="#mattressClick" pickOnBounds="true" preserveRatio="true">

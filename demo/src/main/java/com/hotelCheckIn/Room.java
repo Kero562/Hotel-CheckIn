@@ -10,13 +10,6 @@ public class Room {
    private float dailyRate;
    private String roomType;
 
-   private Room(int roomNumber, int capacity, float dailyRate, String roomType) {
-      this.roomNumber = roomNumber;
-      this.capacity = capacity;
-      this.dailyRate = dailyRate;
-      this.roomType = roomType;
-   }
-
    public Room(int roomNumber) {
       this.roomNumber = roomNumber;
       String roomQuery = "SELECT * FROM rooms WHERE room_number = " + this.roomNumber;

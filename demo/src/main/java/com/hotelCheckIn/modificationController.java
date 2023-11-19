@@ -1,9 +1,12 @@
 package com.hotelCheckIn;
 
+import java.time.LocalDate;
+
 import org.json.JSONObject;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -69,6 +72,22 @@ public class modificationController {
         keyButtons = new RadioButton[2];
         keyButtons[0] = yesButton1;
         keyButtons[1] = noButton1;
+
+        //Set datePicker range & set uneditable
+        dateModifier.setDayCellFactory(picker -> new DateCell() {
+            
+            @Override
+            public void updateItem(LocalDate date, boolean empty)
+            {
+                super.updateItem(date, empty);
+                LocalDate today = LocalDate.now();
+                LocalDate limit = today.plusDays(60);
+
+                setDisable(empty || date.isBefore(today) || date.isAfter(limit));
+            }
+        });
+
+        dateModifier.setEditable(false);
     }
     
     //Functional interface with function defined in formController
@@ -99,6 +118,11 @@ public class modificationController {
             json.put("digitalKeyChoice", 0);
         } else {
             json.put("digitalKeyChoice", 1);
+        }
+
+        if (!dateModifier.getValue().toString().isEmpty())
+        {
+            json.put("checkOut", dateModifier.getValue().toString());
         }
 
         if (submitEventHandler != null)

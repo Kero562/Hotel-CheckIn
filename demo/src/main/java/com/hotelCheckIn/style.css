@@ -150,3 +150,23 @@
 .formLabel {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 5);
 }
+
+.standardBtn {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-text-fill: #3498db;
+    -fx-background-color: transparent;
+    -fx-border-color: #3498db;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5px;
+}
+
+/* Hover effect when the mouse is over the button */
+.standardBtn:hover {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}

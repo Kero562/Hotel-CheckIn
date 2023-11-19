@@ -1,6 +1,8 @@
 package com.hotelCheckIn;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Locale;
 
 import org.apache.commons.validator.routines.EmailValidator;
@@ -77,14 +79,17 @@ public class formController {
     @FXML
     private Label countryCodeLabel;
 
+    //Service variables
     private byte serviceExtraBed = 0;
     private byte serviceDigitalKey = 0;
+    private String serviceNewCheckout;
 
     @FXML
     private VBox serviceBox;
 
     private boolean bedLabelAdded = false;
     private boolean keyLabelAdded = false;
+    private boolean newCheckOutAdded = false;
 
     private Customer customer;
 
@@ -110,13 +115,14 @@ public class formController {
     @FXML
     private Label typeConfLabel;
 
+    private boolean selectionCancelled = false;
+
+    String customerRoomType;
+
+    @FXML
+    private Label typeChange;
+
     public void initialize() {
-
-        //Connect label with its textfield
-        emailLabel.setLabelFor(emailField);
-
-        //Auto-set date-picker date to now
-        datePicker.setValue(LocalDate.now());
 
         //Set engine and set webView background transparent
         engine = webView.getEngine();
@@ -160,10 +166,14 @@ public class formController {
                 roomField.setText(oldValue);
             }
         });
+
+        //Set roomField & datePicker uneditable
+        roomField.setEditable(false);
+        datePicker.setEditable(false);
     }
 
     //Either one can be used -- Keeping both to show that you can create your own "function" (javafxInterface) to bridge from JS
-    //Controller passing explained at line 107
+    //Controller passing explained at line 109
     public static class JavaBridge {
         private formController controller;
 
@@ -173,7 +183,15 @@ public class formController {
         }
         public void receiveID(String className)
         {
-            controller.typeConfLabel.setText(Character.toUpperCase(className.charAt(0)) + className.substring(1)); //capitalized first letter + the rest
+            controller.typeConfLabel.setText(className);
+            if (!controller.customerRoomType.equals(className))
+            {
+                controller.typeChange.setVisible(true);
+                controller.roomField.setDisable(true);
+            } else {
+                controller.typeChange.setVisible(false);
+                controller.roomField.setDisable(false);
+            }
         }
     }
 
@@ -253,7 +271,7 @@ public class formController {
         //
 
         //Check Phone Number validity
-        if (digits != null && countryCode != null)
+        if (!digits.isEmpty() && countryCode != null)
         {
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
             PhoneNumber number = phoneUtil.parse(digits, countryCode);
@@ -265,7 +283,7 @@ public class formController {
             formComplete = false;
             }
         } else {
-            if (digits == null)
+            if (digits.isEmpty())
             {
                 invalidNumLabel.setVisible(true);
                 Toolkit.getDefaultToolkit().beep();
@@ -312,6 +330,10 @@ public class formController {
 
                 serviceExtraBed = (byte) json.getInt("bedChoice");
                 serviceDigitalKey = (byte) json.getInt("digitalKeyChoice");
+                if (json.has("checkOut"))
+                {
+                    serviceNewCheckout = json.getString("checkOut");
+                }
 
                 //Add/remove services (HBoxes with components inside) accordingly
                 manageServiceBox();
@@ -334,7 +356,7 @@ public class formController {
         {
             bedBox = new HBox(6);
             bedBox.setAlignment(Pos.CENTER);
-            Label bedLabel = new Label("- Extra Bed");
+            Label bedLabel = new Label("- Extra Mattress");
             bedLabel.getStyleClass().add("serviceLabels");
             serviceBox.getChildren().add(bedBox);
             bedBox.getChildren().add(bedLabel);
@@ -371,14 +393,98 @@ public class formController {
             serviceBox.getChildren().remove(keyBox);
             keyLabelAdded = false;
         }
+
+        //Checkout service
+        Long checkOutEpoch = customer.getReservations().get(0).getCheckOut();
+        LocalDate customerCheckOutDate = Instant.ofEpochMilli(checkOutEpoch).atZone(ZoneId.systemDefault()).toLocalDate();
+        Label checkOutLabel = new Label();
+        checkOutLabel.setId("checkOutLabel");
+        LocalDate checkOutDateFormat = LocalDate.parse(serviceNewCheckout);
+        HBox checkOutBox = new HBox();
+        checkOutBox.setId("checkOutBox");
+
+        //If it's the same date
+        if (checkOutDateFormat.equals(customerCheckOutDate))
+        {
+            //Remove existing checkOut date if any
+            if (newCheckOutAdded)
+            {
+                HBox actualCheckOutBox = (HBox) serviceBox.lookup("#checkOutBox");
+                serviceBox.getChildren().remove(actualCheckOutBox);
+                newCheckOutAdded = false;
+            }
+        } else {
+            //If new checkout date is requested with no previously added service, add it
+            if (!serviceNewCheckout.isEmpty() && !newCheckOutAdded)
+            {
+                checkOutBox.setAlignment(Pos.CENTER);
+                if (checkOutDateFormat.isBefore(customerCheckOutDate))
+                {
+                    checkOutLabel.setText("- Earlier CheckOut Date: " + checkOutDateFormat.toString());
+                } else
+                {
+                    checkOutLabel.setText("- Later CheckOut Date: " + checkOutDateFormat.toString());
+                }
+                checkOutLabel.getStyleClass().add("serviceLabels");
+                serviceBox.getChildren().add(checkOutBox);
+                checkOutBox.getChildren().add(checkOutLabel);
+
+                newCheckOutAdded = true;
+            }
+            //update the checkout date if changed 
+            else if (!serviceNewCheckout.isEmpty() && newCheckOutAdded)
+            {
+                HBox actualCheckOutBox = (HBox) serviceBox.lookup("#checkOutBox");
+                Label actualCheckOutLabel = (Label) actualCheckOutBox.lookup("#checkOutLabel");
+                if (checkOutDateFormat.isBefore(customerCheckOutDate))
+                {
+                actualCheckOutLabel.setText("- Earlier CheckOut Date: " + checkOutDateFormat.toString());
+                } else
+                {
+                    actualCheckOutLabel.setText("- Later CheckOut Date: " + checkOutDateFormat.toString());
+                }
+            }
+        }
+        //
     }
 
+    //Acts as a second initialize but after the actual one
     public void passCustomer(Customer customer)
     {
         this.customer = customer;
+        Reservation customerReservation = customer.getReservations().get(0);
+        
+        //Convert the checkIn date from epoch milliseconds to LocalDate and put it on datePicker
+        Long epoch = customer.getReservations().get(0).getCheckIn();
+
+        LocalDate fromMill = Instant.ofEpochMilli(epoch).atZone(ZoneId.systemDefault()).toLocalDate();
+        datePicker.setValue(fromMill);
+        //
+
+        //Set room to the customer's room
+        roomField.setText(Integer.toString(customerReservation.getRoom().getRoomNumber()));
+        //
+
+        //Set room type to the customer's room type
+        customerRoomType = customerReservation.getRoom().getRoomType();
+        
+        switch (customerRoomType) {
+            case "SingleRoom":
+                customerRoomType = "Single";
+                typeConfLabel.setText(customerRoomType);
+                break;
+            case "DoubleRoom":
+                customerRoomType = "Double";
+                typeConfLabel.setText(customerRoomType);
+                break;
+            default:
+                customerRoomType = "Twin";
+                typeConfLabel.setText(customerRoomType);
+                break;
+        }
+        //
     }
 
-    private boolean selectionCancelled = false;
     private void handleBoxSelection(ChoiceBox<String> box)
     {
         box.getSelectionModel().selectFirst();
