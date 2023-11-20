@@ -11,7 +11,6 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
@@ -20,14 +19,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.skin.ComboBoxListViewSkin;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -300,9 +303,38 @@ public class formController {
         //Form completion
         if (formComplete)
         {
+            
             DatabaseUtil dbManager = new DatabaseUtil();
             int roomNumber = Integer.parseInt(roomField.getText());
             dbManager.checkIn(customer.getCustomerID(), roomNumber);
+            
+
+            //Close stage
+            Stage theStage = (Stage) submitButton.getScene().getWindow();
+            theStage.close();
+
+            customer.setEmailAddress(emailField.getText());
+            customer.setPhoneNumber(Integer.parseInt(phoneField.getText()));
+
+            if (roomField.isDisabled())
+            {
+                customer.getReservations().get(0).setReservationStatus("Changed");
+            } else {
+                customer.getReservations().get(0).setReservationStatus("Ready");
+            }
+
+            //Set confirmation alert
+            Alert alert = new Alert(AlertType.NONE);
+            alert.setTitle("Form submitted");
+            alert.setHeaderText(null);
+            alert.setContentText("Form was submitted successfully!");
+
+            alert.getButtonTypes().add(ButtonType.OK);
+            Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+            alertStage.getIcons().add(new Image("com/hotelCheckIn/images/cabin.png"));
+
+            alert.showAndWait();
+            //
         }
     }
 
