@@ -431,12 +431,12 @@ public class formController {
         LocalDate customerCheckOutDate = Instant.ofEpochMilli(checkOutEpoch).atZone(ZoneId.systemDefault()).toLocalDate();
         Label checkOutLabel = new Label();
         checkOutLabel.setId("checkOutLabel");
-        LocalDate checkOutDateFormat = LocalDate.parse(serviceNewCheckout);
+        LocalDate checkOutDateFormat = (serviceNewCheckout != null) ? LocalDate.parse(serviceNewCheckout) : null;
         HBox checkOutBox = new HBox();
         checkOutBox.setId("checkOutBox");
 
         //If it's the same date
-        if (checkOutDateFormat.equals(customerCheckOutDate))
+        if (serviceNewCheckout != null && checkOutDateFormat.equals(customerCheckOutDate))
         {
             //Remove existing checkOut date if any
             if (newCheckOutAdded)
@@ -447,7 +447,7 @@ public class formController {
             }
         } else {
             //If new checkout date is requested with no previously added service, add it
-            if (!serviceNewCheckout.isEmpty() && !newCheckOutAdded)
+            if (serviceNewCheckout != null && !newCheckOutAdded)
             {
                 checkOutBox.setAlignment(Pos.CENTER);
                 if (checkOutDateFormat.isBefore(customerCheckOutDate))
@@ -464,7 +464,7 @@ public class formController {
                 newCheckOutAdded = true;
             }
             //update the checkout date if changed 
-            else if (!serviceNewCheckout.isEmpty() && newCheckOutAdded)
+            else if (serviceNewCheckout != null && newCheckOutAdded)
             {
                 HBox actualCheckOutBox = (HBox) serviceBox.lookup("#checkOutBox");
                 Label actualCheckOutLabel = (Label) actualCheckOutBox.lookup("#checkOutLabel");

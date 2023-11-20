@@ -120,7 +120,7 @@ public class modificationController {
             json.put("digitalKeyChoice", 1);
         }
 
-        if (!dateModifier.getValue().toString().isEmpty())
+        if (dateModifier.getValue() != null)
         {
             json.put("checkOut", dateModifier.getValue().toString());
         }
