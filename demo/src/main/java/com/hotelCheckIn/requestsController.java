@@ -63,10 +63,14 @@ public class requestsController {
                             }
                         }
                     }
+                    else {
+                        alreadyAdded.add(split[0]);
+                    }
                 }
 
                 if (stop)
                 {
+                    stop = false;
                     continue;
                 }
 
