@@ -258,8 +258,24 @@ public class controller {
         DatabaseUtil dbManager = new DatabaseUtil();
         if (!dbManager.isValidLogin(textField1.getText(), textField2.getText()))
         {
-            completionText.setStyle("-fx-text-fill: red;");
-            completionText.setText("Loading Failed - No booking found");
+            String reservationStatus = dbManager.reservationStatus(Integer.parseInt(textField2.getText()));
+            if (reservationStatus.equals("Checked In")) {
+                completionText.setStyle("-fx-text-fill: red;");
+                completionText.setText("Loading Failed - Already Checked In");
+            }
+            else if (reservationStatus.equals("Checked Out")) {
+                completionText.setStyle("-fx-text-fill: red;");
+                completionText.setText("Loading Failed - Already Checked Out");
+            }
+            else if (reservationStatus.equals("Cancelled")) {
+                completionText.setStyle("-fx-text-fill: red;");
+                completionText.setText("Loading Failed - Reservation Cancelled");
+            }
+            else {
+                completionText.setStyle("-fx-text-fill: red;");
+                completionText.setText("Loading Failed - No booking found");
+            }
+            
         }
 
         else {

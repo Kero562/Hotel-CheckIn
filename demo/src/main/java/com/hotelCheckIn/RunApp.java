@@ -6,7 +6,7 @@ public class RunApp {
         DatabaseUtil dbManager = new DatabaseUtil();
         dbManager.initializeDB();
 
-        // Current Customer ID/UUID: 20889634
+        // Current Customer ID/UUID: 48857911
         int customerId = dbManager.addCustomer("John", "Doe", "1234567890", "John.Doe@gmail.com");
         if (customerId == -1) {
             System.out.println("Customer not added skipping room and reservation.");

@@ -33,6 +33,7 @@ public class Reservation {
          this.checkOut = rs.getLong("check_out_date");
          this.reservationStatus = rs.getString("reservation_status");
          this.room = new Room(rs.getInt("room_number"));
+         conn.close();
       } catch (SQLException e) {
          System.out.println(e.getMessage());
       }
@@ -75,6 +76,7 @@ public class Reservation {
    }
 
    public void setReservationStatus(String reservationStatus) {
+      System.out.println("[DEBUG] Setting reservation status");
       this.reservationStatus = reservationStatus;
       // Connect to the database
       DatabaseUtil dbManager = new DatabaseUtil();
@@ -82,6 +84,7 @@ public class Reservation {
       try {
          // Execute the query
          conn.createStatement().executeUpdate("UPDATE reservation SET reservation_status = '" + this.reservationStatus + "' WHERE customer_id = " + this.customerID);
+         conn.close();
       } catch (SQLException e) {
          System.out.println(e.getMessage());
       }

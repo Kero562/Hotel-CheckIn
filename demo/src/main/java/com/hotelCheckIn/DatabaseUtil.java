@@ -13,58 +13,65 @@ public class DatabaseUtil {
     public void initializeDB() {
         Connection conn = connect();
         if (conn != null) {
-            System.out.println("[Info] Database accessible.");
 
-            // Create a customer database with customer_id, first_name, last_name, phone, email
-            String customer = "CREATE TABLE IF NOT EXISTS customer (\n"
-            + "	customer_id integer PRIMARY KEY,\n"
-            + "	first_name text NOT NULL,\n"
-            + "	last_name text NOT NULL,\n"
-            + "	phone text NOT NULL UNIQUE,\n"
-            + "	email text NOT NULL UNIQUE\n"
-            + ");";
-            createTable("customer", customer);
+            try {
+                
+                System.out.println("[Info] Database accessible.");
 
-            // Create an admin database with admin_id, username, password
-            String admin = "CREATE TABLE IF NOT EXISTS admin (\n"
-            + "	admin_id integer PRIMARY KEY,\n"
-            + "	username text NOT NULL UNIQUE,\n"
-            + "	password text NOT NULL UNIQUE\n"
-            + ");";
-            createTable("admin", admin);
+                // Create a customer database with customer_id, first_name, last_name, phone, email
+                String customer = "CREATE TABLE IF NOT EXISTS customer (\n"
+                + "	customer_id integer PRIMARY KEY,\n"
+                + "	first_name text NOT NULL,\n"
+                + "	last_name text NOT NULL,\n"
+                + "	phone text NOT NULL UNIQUE,\n"
+                + "	email text NOT NULL UNIQUE\n"
+                + ");";
+                createTable("customer", customer);
 
-            // Create a rooms database with room_number, capacity, daily_rate, room_type, room_status
-            String room = "CREATE TABLE IF NOT EXISTS rooms (\n"
-            + "	room_number integer PRIMARY KEY,\n"
-            + " capacity integer NOT NULL,\n"
-            + " daily_rate real NOT NULL,\n"
-            + " room_type text NOT NULL,\n"
-            + " room_status text NOT NULL\n"
-            + ");";
-            createTable("rooms", room);
+                // Create an admin database with admin_id, username, password
+                String admin = "CREATE TABLE IF NOT EXISTS admin (\n"
+                + "	admin_id integer PRIMARY KEY,\n"
+                + "	username text NOT NULL UNIQUE,\n"
+                + "	password text NOT NULL UNIQUE\n"
+                + ");";
+                createTable("admin", admin);
 
-            // Create a reservation database with customer_id, room_number, check_in_date, check_out_date, reservation_status
-            String reservation = "CREATE TABLE IF NOT EXISTS reservation (\n"
-            + " customer_id integer NOT NULL,\n"
-            + " room_number integer NOT NULL,\n"
-            + " check_in_date integer NOT NULL,\n"
-            + " check_out_date integer NOT NULL,\n"
-            + " reservation_status text NOT NULL,\n"
-            + " PRIMARY KEY (customer_id, room_number),\n"
-            + " FOREIGN KEY (customer_id) REFERENCES customer (customer_id),\n"
-            + " FOREIGN KEY (room_number) REFERENCES rooms (room_number)\n"
-            + ");";
-            createTable("reservation", reservation);
+                // Create a rooms database with room_number, capacity, daily_rate, room_type, room_status
+                String room = "CREATE TABLE IF NOT EXISTS rooms (\n"
+                + "	room_number integer PRIMARY KEY,\n"
+                + " capacity integer NOT NULL,\n"
+                + " daily_rate real NOT NULL,\n"
+                + " room_type text NOT NULL,\n"
+                + " room_status text NOT NULL\n"
+                + ");";
+                createTable("rooms", room);
 
-            // Create a service database with service_id, room_number, type, description, urgency, time_created, service_status, assigned_employee
-            String service = "CREATE TABLE IF NOT EXISTS service (\n"
-            + " service_id integer PRIMARY KEY,\n"
-            + " room_number integer NOT NULL,\n"
-            + " type text NOT NULL,\n"
-            + " urgency text NOT NULL,\n"
-            + " FOREIGN KEY (room_number) REFERENCES rooms (room_number)\n"
-            + ");";
-            createTable("service", service);
+                // Create a reservation database with customer_id, room_number, check_in_date, check_out_date, reservation_status
+                String reservation = "CREATE TABLE IF NOT EXISTS reservation (\n"
+                + " customer_id integer NOT NULL,\n"
+                + " room_number integer NOT NULL,\n"
+                + " check_in_date integer NOT NULL,\n"
+                + " check_out_date integer NOT NULL,\n"
+                + " reservation_status text NOT NULL,\n"
+                + " PRIMARY KEY (customer_id, room_number),\n"
+                + " FOREIGN KEY (customer_id) REFERENCES customer (customer_id),\n"
+                + " FOREIGN KEY (room_number) REFERENCES rooms (room_number)\n"
+                + ");";
+                createTable("reservation", reservation);
+
+                // Create a service database with service_id, room_number, type, description, urgency, time_created, service_status, assigned_employee
+                String service = "CREATE TABLE IF NOT EXISTS service (\n"
+                + " service_id integer PRIMARY KEY,\n"
+                + " room_number integer NOT NULL,\n"
+                + " type text NOT NULL,\n"
+                + " urgency text NOT NULL,\n"
+                + " FOREIGN KEY (room_number) REFERENCES rooms (room_number)\n"
+                + ");";
+                createTable("service", service);
+                conn.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
         else {
             System.out.println("[Error] Database not accessible.");
@@ -92,6 +99,7 @@ public class DatabaseUtil {
             Connection conn = this.connect();
             conn.createStatement().execute(sql);
             System.out.println("Executed Statement.");
+            conn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -124,12 +132,15 @@ public class DatabaseUtil {
             if (name != null) {
                 // Table exists
                 System.out.println("[Info] Table " + tableName + " exists.");
+                conn.close();
                 return true;
             } else {
                 // Table does not exist
                 System.out.println("[Info] Table " + tableName + " does not exist.");
+                conn.close();
                 return false;
             }
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
@@ -163,31 +174,37 @@ public class DatabaseUtil {
             // Perfect scenario: the customer has a pending reservation and the check in date is before the current time and the check out date is after the current time
             if (checkInDate < System.currentTimeMillis() && checkOutDate > System.currentTimeMillis() && isValidCustomer && hasPendingReservation) {
                 System.out.println("[Info] Valid reservation.");
+                conn.close();
                 return true;
             }
             // Customer does not exist
             else if (!isValidCustomer) {
                 System.out.println("[Info] Customer does not exist.");
+                conn.close();
                 return false;
             }
             // Customer does not have a pending reservation
             else if (!hasPendingReservation) {
                 System.out.println("[Info] Customer does not have a pending reservation.");
+                conn.close();
                 return false;
             }
             // Reservation is not valid yet, the guest must wait until the check in date
             else if (checkInDate > System.currentTimeMillis()) {
                 System.out.println("[Info] Reservation is not valid yet.");
+                conn.close();
                 return false;
             }
             // Reservation has expired
             else if (checkInDate < System.currentTimeMillis()) {
                 System.out.println("[Info] Reservation has expired.");
+                conn.close();
                 return false;
             }
             // Fallback
             else {
                 System.out.println("[Info] Invalid reservation.");
+                conn.close();
                 return false;
             }
         } catch (SQLException e) {
@@ -208,16 +225,64 @@ public class DatabaseUtil {
                 String reservationStatus = reservationTable.getString("reservation_status");
                 if (reservationStatus.equals("Pending")) {
                     System.out.println("[Info] Customer has a pending reservation.");
+                    conn.close();
                     return true;
                 }
             }
 
             // If the loop completes without finding a pending reservation then the customer does not have a pending reservation
             System.out.println("[Info] Customer does not have a pending reservation.");
+            conn.close();
             return false;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
+        }
+    }
+
+    public String reservationStatus(int customerId) {
+        try {
+            Connection conn = this.connect();
+            // Query the reservation table for all reservations associated with the passed customerId
+            String reservationQuery = "SELECT * FROM reservation r WHERE r.customer_id = '" + customerId + "'";
+            ResultSet reservationTable = conn.createStatement().executeQuery(reservationQuery);
+
+            String reservationStatus = reservationTable.getString("reservation_status");
+            if (reservationStatus.equals("Pending")) {
+                System.out.println("[Info] Customer has a pending reservation.");
+                conn.close();
+                return "Pending";
+            }
+            else if (reservationStatus.equals("Changed")) {
+                System.out.println("[Info] Customer has an occupied reservation.");
+                conn.close();
+                return "Changed";
+            }
+            else if (reservationStatus.equals("Checked In")) {
+                System.out.println("[Info] Customer has a checked in reservation.");
+                conn.close();
+                return "Checked In";
+            }
+            else if (reservationStatus.equals("Checked Out")) {
+                System.out.println("[Info] Customer has a checked out reservation.");
+                conn.close();
+                return "Checked Out";
+            }
+            else if (reservationStatus.equals("Cancelled")) {
+                System.out.println("[Info] Customer has a cancelled reservation.");
+                conn.close();
+                return "Cancelled";
+            }
+            // Loop through all the reservations associated with the passed customerId anc check them
+            
+
+            // If the loop completes without finding a pending reservation then the customer does not have a pending reservation
+            System.out.println("[Info] Customer does not have a valid reservation status.");
+            conn.close();
+            return "No Reservation";
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return "No Reservation";
         }
     }
 
@@ -232,9 +297,11 @@ public class DatabaseUtil {
             String adminID = adminTable.getString("admin_id");
             if (adminID != null) {
                 System.out.println("[Info] Valid admin: " + username + " with UUID " + adminID);
+                conn.close();
                 return true;
             } else {
                 System.out.println("[Info] Invalid admin: " + username + " with password " + password);
+                conn.close();
                 return false;
             }
         } catch (SQLException e) {
@@ -253,6 +320,7 @@ public class DatabaseUtil {
             conn.createStatement().execute(sql);
             System.out.println("[Info] Admin has been added with ID: " + adminId);
             // Return the admin ID upon success
+            conn.close();
             return adminId;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -271,6 +339,7 @@ public class DatabaseUtil {
             conn.createStatement().execute(sql);
             System.out.println("[Info] Customer has been added with ID: " + customerId);
             // Return the customer ID upon success
+            conn.close();
             return customerId;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -287,6 +356,7 @@ public class DatabaseUtil {
             conn.createStatement().execute(sql);
             System.out.println("[Info] Room has been added.");
             // Return the room number upon success
+            conn.close();
             return roomNumber;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -302,6 +372,7 @@ public class DatabaseUtil {
             Connection conn = this.connect();
             conn.createStatement().execute(sql);
             System.out.println("[Info] Reservation has been added.");
+            conn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -314,6 +385,7 @@ public class DatabaseUtil {
             Connection conn = this.connect();
             conn.createStatement().execute(sql);
             System.out.println("[Info] Reservation status has been updated.");
+            conn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -326,6 +398,7 @@ public class DatabaseUtil {
             Connection conn = this.connect();
             conn.createStatement().execute(sql);
             System.out.println("Room status has been updated.");
+            conn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -333,7 +406,9 @@ public class DatabaseUtil {
 
     // Check out a customer by updating the reservation status and room status
     public void checkIn(int customerId, int roomNumber) {
+        System.out.println("[DEBUG] Checking in user to reservation");
         setReservationStatus(customerId, roomNumber, "Checked In");
+        System.out.println("[DEBUG] Checking in user to room");
         setRoomStatus(roomNumber, "Occupied");
     }
 }

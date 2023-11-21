@@ -307,9 +307,9 @@ public class formController {
         if (formComplete)
         {
             
-            //DatabaseUtil dbManager = new DatabaseUtil();
+            DatabaseUtil dbManager = new DatabaseUtil();
             int roomNumber = Integer.parseInt(roomField.getText());
-            //dbManager.checkIn(customer.getCustomerID(), roomNumber);
+            dbManager.checkIn(customer.getCustomerID(), roomNumber);
             
 
             //Close stage
@@ -323,7 +323,7 @@ public class formController {
             {
                 customer.getReservations().get(0).setReservationStatus("Changed");
             } else {
-                customer.getReservations().get(0).setReservationStatus("Ready");
+                customer.getReservations().get(0).setReservationStatus("Checked In");
             }
 
             //Set confirmation alert

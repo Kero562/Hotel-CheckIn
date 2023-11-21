@@ -23,6 +23,7 @@ public class Room {
          this.capacity = rs.getInt("capacity");
          this.dailyRate = rs.getFloat("daily_rate");
          this.roomType = rs.getString("room_type");
+         conn.close();
       } catch (SQLException e) {
          System.out.println(e.getMessage());
       }

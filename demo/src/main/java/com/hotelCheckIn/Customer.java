@@ -45,6 +45,7 @@ public class Customer {
             Reservation reservation = new Reservation(rs2.getInt("customer_id"));
             this.reservations.add(reservation);
          }
+         conn.close();
       } catch (SQLException e) {
          System.out.println(e.getMessage());
       }
@@ -91,6 +92,7 @@ public class Customer {
    }
 
    public void setEmailAddress(String emailAddress) {
+      System.out.println("[DEBUG] Setting email");
       this.emailAddress = emailAddress;
       String updateEmail = "UPDATE customer SET email = '" + this.emailAddress + "' WHERE customer_id = " + this.customerID;
       // Connect to the database
@@ -99,12 +101,14 @@ public class Customer {
       try {
          // Execute the query
          conn.createStatement().execute(updateEmail);
+         conn.close();
       } catch (SQLException e) {
          System.out.println(e.getMessage());
       }
    }
 
    public void setPhoneNumber(Long phoneNumber) {
+      System.out.println("[DEBUG] Setting phone");
       this.phoneNumber = phoneNumber;
       String updatePhone = "UPDATE customer SET phone = " + this.phoneNumber + " WHERE customer_id = " + this.customerID;
       // Connect to the database
@@ -113,6 +117,7 @@ public class Customer {
       try {
          // Execute the query
          conn.createStatement().execute(updatePhone);
+         conn.close();
       } catch (SQLException e) {
          System.out.println(e.getMessage());
       }
