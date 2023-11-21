@@ -6,7 +6,7 @@ public class RunApp {
         DatabaseUtil dbManager = new DatabaseUtil();
         dbManager.initializeDB();
 
-        // Current Customer ID/UUID: 48891500
+        // Current Customer ID/UUID: 37028509
         int customerId = dbManager.addCustomer("John", "Doe", "1234567890", "John.Doe@gmail.com");
         if (customerId == -1) {
             System.out.println("Customer not added skipping room and reservation.");
@@ -25,13 +25,13 @@ public class RunApp {
         dbManager.addAdmin("admin", "password");
         
         String logView = "CREATE VIEW IF NOT EXISTS log AS\n"
-        + "SELECT c.customer_id, c.last_name, r.room_number, r.reservation_status\n"
+        + "SELECT c.customer_id, c.last_name, c.email, r.room_number, r.reservation_status\n"
         + "FROM customer c, reservation r\n"
         + "INNER JOIN reservation ON c.customer_id = r.customer_id;";
         dbManager.executeStatement(logView);
 
         String serviceLog = "CREATE VIEW IF NOT EXISTS service_log AS\n"
-        + "SELECT l.customer_id, l.last_name, l.room_number, l.reservation_status, service.type, service.urgency, service.status\n"
+        + "SELECT l.customer_id, l.last_name, l.email, l.room_number, l.reservation_status, service.type, service.urgency, service.status\n"
         + "FROM log l\n"
         + "LEFT JOIN service ON service.room_number = l.room_number;";
         dbManager.executeStatement(serviceLog);

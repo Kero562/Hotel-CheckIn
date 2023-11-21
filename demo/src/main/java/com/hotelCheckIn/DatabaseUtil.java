@@ -432,8 +432,9 @@ public class DatabaseUtil {
                 String serviceType = serviceTable.getString("type");
                 String serviceUrgency = serviceTable.getString("urgency");
                 String serviceStatus = serviceTable.getString("status");
+                String email = serviceTable.getString("email");
                 // Add the service to the log
-                log[i] = customerId + "|" + lastName + "|" + roomNumber + "|" + reservationStatus + "|" + serviceType + "|" + serviceUrgency + "|" + serviceStatus;
+                log[i] = customerId + "|" + lastName + "|" + roomNumber + "|" + reservationStatus + "|" + serviceType + "|" + serviceUrgency + "|" + serviceStatus + "|" + email;
                 i++;
             }
             conn.close();
