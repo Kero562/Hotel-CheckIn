@@ -1,6 +1,7 @@
 package com.hotelCheckIn;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Properties;
 
 import javax.mail.internet.InternetAddress;
@@ -10,8 +11,14 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -102,11 +109,38 @@ public class requestsController {
                 Button rejectButton = new Button("Reject");
 
                 acptButton.setOnAction(e -> {
-                    dbManager.setServiceStatus(Integer.parseInt(split[2]), "Accepted");
+                    //dbManager.setServiceStatus(Integer.parseInt(split[2]), "Accepted");
+                    Dialog<String> dialog = new Dialog<>();
+                    dialog.setTitle("Enter Text");
+                    dialog.setHeaderText(null);
+
+                    TextArea textArea = new TextArea();
+                    textArea.setPrefColumnCount(20);
+                    textArea.setPrefRowCount(5);
+                    textArea.setWrapText(true);
+
+                    dialog.getDialogPane().setContent(textArea);
+
+                    ButtonType confirmButtonType = new ButtonType("OK", ButtonData.OK_DONE);
+                    dialog.getDialogPane().getButtonTypes().addAll(confirmButtonType, ButtonType.CANCEL);
+
+                    dialog.setResultConverter(buttonType -> {
+                        if (buttonType == confirmButtonType)
+                        {
+                            return textArea.getText();
+                        }
+                        return null;
+                    });
+
+                    Optional<String> result = dialog.showAndWait();
+
+                    result.ifPresent(text -> {
+                        System.out.println(text);
+                    });
                 });
 
                 rejectButton.setOnAction(e -> {
-                    dbManager.setServiceStatus(Integer.parseInt(split[2]), "Rejected");
+                    //dbManager.setServiceStatus(Integer.parseInt(split[2]), "Rejected");
                 });
 
                 checkInBox.getChildren().add(acptButton);
