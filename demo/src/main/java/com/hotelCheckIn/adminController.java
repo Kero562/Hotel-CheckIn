@@ -94,9 +94,4 @@ public class adminController {
             return false;
         }
     }
-
-    public void sendEmail()
-    {
-        
-    }
 }
