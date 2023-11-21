@@ -11,10 +11,10 @@ public class Customer {
    private String firstName;
    private String lastName;
    private String emailAddress;
-   private int phoneNumber;
+   private Long phoneNumber;
    private List<Reservation> reservations;
 
-   Customer(int customerID, String firstName, String lastName, String emailAddress, int phoneNumber) {
+   Customer(int customerID, String firstName, String lastName, String emailAddress, Long phoneNumber) {
       this.customerID = customerID;
       this.firstName = firstName;
       this.lastName = lastName;
@@ -35,7 +35,7 @@ public class Customer {
          this.firstName = rs.getString("first_name");
          this.lastName = rs.getString("last_name");
          this.emailAddress = rs.getString("email");
-         this.phoneNumber = rs.getInt("phone");
+         this.phoneNumber = rs.getLong("phone");
 
          // Get the reservations
          this.reservations = new ArrayList<Reservation>();
@@ -70,7 +70,7 @@ public class Customer {
       return this.emailAddress;
    }
 
-   public int getPhoneNumber() {
+   public Long getPhoneNumber() {
       return this.phoneNumber;
    }
 
@@ -104,7 +104,7 @@ public class Customer {
       }
    }
 
-   public void setPhoneNumber(int phoneNumber) {
+   public void setPhoneNumber(Long phoneNumber) {
       this.phoneNumber = phoneNumber;
       String updatePhone = "UPDATE customer SET phone = " + this.phoneNumber + " WHERE customer_id = " + this.customerID;
       // Connect to the database

@@ -307,9 +307,9 @@ public class formController {
         if (formComplete)
         {
             
-            DatabaseUtil dbManager = new DatabaseUtil();
+            //DatabaseUtil dbManager = new DatabaseUtil();
             int roomNumber = Integer.parseInt(roomField.getText());
-            dbManager.checkIn(customer.getCustomerID(), roomNumber);
+            //dbManager.checkIn(customer.getCustomerID(), roomNumber);
             
 
             //Close stage
@@ -317,7 +317,7 @@ public class formController {
             theStage.close();
 
             customer.setEmailAddress(emailField.getText());
-            customer.setPhoneNumber(Integer.parseInt(phoneField.getText()));
+            customer.setPhoneNumber(Long.parseLong(phoneField.getText()));
 
             if (roomField.isDisabled())
             {
