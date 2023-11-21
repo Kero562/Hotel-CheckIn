@@ -30,11 +30,13 @@ public class requestsController {
     @FXML
     private ScrollPane scrollPane;
 
+    //List of already added customer rows
     ArrayList<String> alreadyAdded = new ArrayList<>();
     
     public void initialize()
     {
         DatabaseUtil dbManager = new DatabaseUtil();
+        //getting check-in logs
         String[] logs = dbManager.getLog();
         for (int i = 0; i < logs.length; i++)
         {
@@ -42,8 +44,11 @@ public class requestsController {
             if (logs[i] != null) {
                 System.out.println(logs[i]);
 
+                //The log is in A|B|C|D form, so split by |
                 String[] split = logs[i].split("\\|");
 
+                //just add the first customer, there wouldn't be an overlap since that's the first one. For the rest, check in the alreadyAdded to see if the customer is already there
+                //if they are, fetch the accommodation info and append it to the already made row
                 if (i == 0)
                 {
                     alreadyAdded.add(split[0]);
@@ -73,6 +78,7 @@ public class requestsController {
                     }
                 }
 
+                //Don't add the duplicate customer row
                 if (stop)
                 {
                     stop = false;
@@ -134,9 +140,8 @@ public class requestsController {
 
                     result.ifPresent(text -> {
                         sendEmail(split[7], text, "Check In Approved");
+                        requestsBox.getChildren().remove(checkInBox);
                     });
-
-                    requestsBox.getChildren().remove(checkInBox);
                 });
 
                 rejectButton.setOnAction(e -> {
@@ -168,9 +173,8 @@ public class requestsController {
 
                     result.ifPresent(text -> {
                         sendEmail(split[7], text, "Check In Disapproved");
+                        requestsBox.getChildren().remove(checkInBox);
                     });
-
-                    requestsBox.getChildren().remove(checkInBox);
                 });
 
                 checkInBox.getChildren().add(acptButton);
