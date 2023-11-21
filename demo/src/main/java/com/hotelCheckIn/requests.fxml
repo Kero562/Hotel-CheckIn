@@ -7,18 +7,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="934.0" styleClass="admin" stylesheets="@style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hotelCheckIn.requestsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="858.0" prefWidth="1225.0" styleClass="admin" stylesheets="@style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hotelCheckIn.requestsController">
    <children>
-      <Label alignment="CENTER" layoutX="386.0" layoutY="14.0" prefHeight="50.0" prefWidth="163.0" text="Requests" textAlignment="CENTER" textFill="#2f3c5e">
+      <Label alignment="CENTER" layoutX="544.0" layoutY="27.0" prefHeight="50.0" prefWidth="163.0" text="Requests" textAlignment="CENTER" textFill="#2f3c5e">
          <font>
             <Font name="Cookie-Regular" size="37.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="40.0" layoutY="102.0" prefHeight="531.0" prefWidth="854.0">
+      <ScrollPane fx:id="scrollPane" layoutX="55.0" layoutY="119.0" prefHeight="704.0" prefWidth="1141.0">
          <content>
-            <VBox prefHeight="529.0" prefWidth="851.0" />
+            <VBox fx:id="requestsBox" prefHeight="702.0" prefWidth="1138.0" />
          </content>
       </ScrollPane>
-      <Button layoutX="721.0" layoutY="64.0" mnemonicParsing="false" onAction="#sendEmail" text="Button" />
+      <Button layoutX="1103.0" layoutY="27.0" mnemonicParsing="false" onAction="#sendEmail" text="Button" />
    </children>
 </AnchorPane>

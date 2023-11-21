@@ -170,3 +170,7 @@
     -fx-background-color: #3498db;
     -fx-text-fill: white;
 }
+
+.logLabels{
+    -fx-font-size: 17px;
+}
