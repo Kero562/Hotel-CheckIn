@@ -65,6 +65,7 @@ public class DatabaseUtil {
                 + " room_number integer NOT NULL,\n"
                 + " type text NOT NULL,\n"
                 + " urgency text NOT NULL,\n"
+                + " status text NOT NULL,\n"
                 + " FOREIGN KEY (room_number) REFERENCES rooms (room_number)\n"
                 + ");";
                 createTable("service", service);
@@ -410,5 +411,49 @@ public class DatabaseUtil {
         setReservationStatus(customerId, roomNumber, "Checked In");
         System.out.println("[DEBUG] Checking in user to room");
         setRoomStatus(roomNumber, "Occupied");
+    }
+
+    public String[] getLog() {
+        try {
+            Connection conn = this.connect();
+            // Query the service_log view for all services where the reservation_status is "Checked In" and the service_status is "Pending"
+            String serviceQuery = "SELECT * FROM service_log WHERE reservation_status = 'Checked In' AND status = 'Pending'";
+            ResultSet serviceTable = conn.createStatement().executeQuery(serviceQuery);
+            // Loop through all the services and add them to the log
+            String[] log = new String[100];
+            int i = 0;
+            while (serviceTable.next() && i < 100) {
+                System.out.println("[DEBUG] Adding service to log");
+                // Get the customer ID, last name, room number, reservation status, service type, service urgency, and service status
+                int customerId = serviceTable.getInt("customer_id");
+                String lastName = serviceTable.getString("last_name");
+                int roomNumber = serviceTable.getInt("room_number");
+                String reservationStatus = serviceTable.getString("reservation_status");
+                String serviceType = serviceTable.getString("type");
+                String serviceUrgency = serviceTable.getString("urgency");
+                String serviceStatus = serviceTable.getString("status");
+                // Add the service to the log
+                log[i] = customerId + "|" + lastName + "|" + roomNumber + "|" + reservationStatus + "|" + serviceType + "|" + serviceUrgency + "|" + serviceStatus;
+                i++;
+            }
+            conn.close();
+            return log;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public void setServiceStatus(int serviceId, String status) {
+        // Update the service status in the service table
+        String sql = "UPDATE service SET status = '" + status + "' WHERE service_id = '" + serviceId + "'";
+        try {
+            Connection conn = this.connect();
+            conn.createStatement().execute(sql);
+            System.out.println("[Info] Service status has been updated.");
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

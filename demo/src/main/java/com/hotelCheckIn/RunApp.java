@@ -6,7 +6,7 @@ public class RunApp {
         DatabaseUtil dbManager = new DatabaseUtil();
         dbManager.initializeDB();
 
-        // Current Customer ID/UUID: 48857911
+        // Current Customer ID/UUID: 48891500
         int customerId = dbManager.addCustomer("John", "Doe", "1234567890", "John.Doe@gmail.com");
         if (customerId == -1) {
             System.out.println("Customer not added skipping room and reservation.");
@@ -31,7 +31,7 @@ public class RunApp {
         dbManager.executeStatement(logView);
 
         String serviceLog = "CREATE VIEW IF NOT EXISTS service_log AS\n"
-        + "SELECT l.customer_id, l.last_name, l.room_number, l.reservation_status, service.type, service.urgency\n"
+        + "SELECT l.customer_id, l.last_name, l.room_number, l.reservation_status, service.type, service.urgency, service.status\n"
         + "FROM log l\n"
         + "LEFT JOIN service ON service.room_number = l.room_number;";
         dbManager.executeStatement(serviceLog);

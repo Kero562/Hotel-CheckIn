@@ -2,10 +2,6 @@ package com.hotelCheckIn;
 
 import java.util.Properties;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -15,10 +11,17 @@ public class requestsController {
     
     public void initialize()
     {
-
+        DatabaseUtil dbManager = new DatabaseUtil();
+        String[] logs = dbManager.getLog();
+        for (int i = 0; i < logs.length; i++)
+        {
+            if (logs[i] != null) {
+                System.out.println(logs[i]);
+            }
+        }
     }
 
-        public void sendEmail()
+    public void sendEmail()
     {
         // email credentials and message data
         final String username = "4dragonsresort@gmail.com";
