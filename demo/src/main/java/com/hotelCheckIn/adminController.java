@@ -142,4 +142,8 @@ public class adminController {
         }
     }
 
+    public void grabLogs()
+    {
+        
+    }
 }

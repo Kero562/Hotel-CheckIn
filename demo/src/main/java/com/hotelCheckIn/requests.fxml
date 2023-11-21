@@ -20,5 +20,6 @@
          </content>
       </ScrollPane>
       <Button layoutX="721.0" layoutY="64.0" mnemonicParsing="false" onAction="#sendEmail" text="Button" />
+      <Button layoutX="119.0" layoutY="64.0" mnemonicParsing="false" onAction="#grabLogs" text="Button" />
    </children>
 </AnchorPane>
