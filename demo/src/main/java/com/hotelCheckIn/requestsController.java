@@ -1,13 +1,31 @@
 package com.hotelCheckIn;
 
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+
 import javax.mail.*;
 
 public class requestsController {
+
+    @FXML
+    private VBox requestsBox;
+
+    @FXML
+    private ScrollPane scrollPane;
+
+    ArrayList<String> alreadyAdded = new ArrayList<>();
     
     public void initialize()
     {
@@ -15,10 +33,92 @@ public class requestsController {
         String[] logs = dbManager.getLog();
         for (int i = 0; i < logs.length; i++)
         {
+            boolean stop = false;
             if (logs[i] != null) {
                 System.out.println(logs[i]);
+
+                String[] split = logs[i].split("\\|");
+
+                if (i == 0)
+                {
+                    alreadyAdded.add(split[0]);
+                } else {
+                    if (alreadyAdded.contains(split[0]))
+                    {
+                        for (Node node : requestsBox.getChildren())
+                        {
+                            if (node instanceof HBox)
+                            {
+                                HBox hbox = (HBox) node;
+                                Label firstLabel = (Label) hbox.getChildren().get(0);
+                                if (firstLabel.getText().equals(split[0]))
+                                {
+                                    Label services = (Label) hbox.getChildren().get(3);
+                                    Label urgencyLabel = (Label) hbox.getChildren().get(4);
+                                    services.setText(services.getText() + "/" + getAbbreviation(split[4]));
+                                    urgencyLabel.setText(urgencyLabel.getText() + "/" + split[5]);
+                                    stop = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (stop)
+                {
+                    continue;
+                }
+
+                HBox checkInBox = new HBox(70);
+                checkInBox.setMinWidth(scrollPane.getWidth());
+                checkInBox.setMaxHeight(100);
+                checkInBox.setAlignment(Pos.CENTER);
+                
+                //add labels
+                for (int j = 0; j < split.length; j++)
+                {
+                    Label label;
+                    if (j == 3 || j == 6)
+                    {
+                        continue;
+                    }
+                    if (j == 4)
+                    {
+                        label = new Label(getAbbreviation(split[j]));
+                    } else {
+                        label = new Label(split[j]);
+                    }
+                    label.getStyleClass().add("logLabels");
+                    checkInBox.getChildren().add(label);
+                }
+
+                //add buttons
+                Button acptButton = new Button("Accept");
+                Button rejectButton = new Button("Reject");
+
+                acptButton.setOnAction(e -> {
+                    
+                });
+
+                rejectButton.setOnAction(e -> {
+                    
+                });
+
+                checkInBox.getChildren().add(acptButton);
+                checkInBox.getChildren().add(rejectButton);
+
+                requestsBox.getChildren().add(checkInBox);
             }
         }
+    }
+
+    public String getAbbreviation(String longString)
+    {
+        if (longString.equals("Digital Key Access")) return "DK";
+        else if (longString.equals("Extra Mattress")) return "EM";
+        else if (longString.equals("CheckOut Date")) return "CD";
+        else return "-";
     }
 
     public void sendEmail()
