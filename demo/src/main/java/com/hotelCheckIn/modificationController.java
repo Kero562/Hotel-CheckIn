@@ -192,6 +192,7 @@ public class modificationController {
         dateModifier.setVisible(true);
     }
 
+    //For each service tab, uncheck when clicked away
     public void sceneClicked(MouseEvent event)
     {
         if (!mattressView.getBoundsInParent().contains(event.getX(), event.getY())) {

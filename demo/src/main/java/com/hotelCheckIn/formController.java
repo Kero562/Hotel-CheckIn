@@ -125,6 +125,9 @@ public class formController {
     @FXML
     private Label typeChange;
 
+    ChoiceBox<String> BedUrgencyBox;
+    ChoiceBox<String> KeyUrgencyBox;
+
     public void initialize() {
 
         //Set engine and set webView background transparent
@@ -393,10 +396,10 @@ public class formController {
             serviceBox.getChildren().add(bedBox);
             bedBox.getChildren().add(bedLabel);
 
-            ChoiceBox<String> urgencyBox = new ChoiceBox<>(urgencyList);
-            handleBoxSelection(urgencyBox);
+            BedUrgencyBox = new ChoiceBox<>(urgencyList);
+            handleBoxSelection(BedUrgencyBox);
 
-            bedBox.getChildren().add(urgencyBox);
+            bedBox.getChildren().add(BedUrgencyBox);
 
             bedLabelAdded = true;
         } else if (serviceExtraBed == 0 && bedLabelAdded)
@@ -414,10 +417,10 @@ public class formController {
             serviceBox.getChildren().add(keyBox);
             keyBox.getChildren().add(keyLabel);
 
-            ChoiceBox<String> urgencyBox = new ChoiceBox<>(urgencyList);
-            handleBoxSelection(urgencyBox);
+            KeyUrgencyBox = new ChoiceBox<>(urgencyList);
+            handleBoxSelection(KeyUrgencyBox);
 
-            keyBox.getChildren().add(urgencyBox);
+            keyBox.getChildren().add(KeyUrgencyBox);
 
             keyLabelAdded = true;
         } else if (serviceDigitalKey == 0 && keyLabelAdded)
