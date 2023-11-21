@@ -76,6 +76,15 @@ public class Reservation {
 
    public void setReservationStatus(String reservationStatus) {
       this.reservationStatus = reservationStatus;
+      // Connect to the database
+      DatabaseUtil dbManager = new DatabaseUtil();
+      Connection conn = dbManager.connect();
+      try {
+         // Execute the query
+         conn.createStatement().executeUpdate("UPDATE reservation SET reservation_status = '" + this.reservationStatus + "' WHERE customer_id = " + this.customerID);
+      } catch (SQLException e) {
+         System.out.println(e.getMessage());
+      }
    }
 
    public void setRoom(Room room) {

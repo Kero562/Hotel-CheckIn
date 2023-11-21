@@ -92,10 +92,30 @@ public class Customer {
 
    public void setEmailAddress(String emailAddress) {
       this.emailAddress = emailAddress;
+      String updateEmail = "UPDATE customer SET email = '" + this.emailAddress + "' WHERE customer_id = " + this.customerID;
+      // Connect to the database
+      DatabaseUtil dbManager = new DatabaseUtil();
+      Connection conn = dbManager.connect();
+      try {
+         // Execute the query
+         conn.createStatement().execute(updateEmail);
+      } catch (SQLException e) {
+         System.out.println(e.getMessage());
+      }
    }
 
    public void setPhoneNumber(int phoneNumber) {
       this.phoneNumber = phoneNumber;
+      String updatePhone = "UPDATE customer SET phone = " + this.phoneNumber + " WHERE customer_id = " + this.customerID;
+      // Connect to the database
+      DatabaseUtil dbManager = new DatabaseUtil();
+      Connection conn = dbManager.connect();
+      try {
+         // Execute the query
+         conn.createStatement().execute(updatePhone);
+      } catch (SQLException e) {
+         System.out.println(e.getMessage());
+      }
    }
 
    @Override

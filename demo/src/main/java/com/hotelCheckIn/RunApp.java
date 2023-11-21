@@ -6,7 +6,7 @@ public class RunApp {
         DatabaseUtil dbManager = new DatabaseUtil();
         dbManager.initializeDB();
 
-        // Current Customer ID/UUID: 21334406
+        // Current Customer ID/UUID: 20889634
         int customerId = dbManager.addCustomer("John", "Doe", "1234567890", "John.Doe@gmail.com");
         if (customerId == -1) {
             System.out.println("Customer not added skipping room and reservation.");
@@ -24,11 +24,22 @@ public class RunApp {
 
         dbManager.addAdmin("admin", "password");
         
-        String checkInLogView = "CREATE VIEW IF NOT EXISTS check_in_log AS\n"
-        + "SELECT c.customer_id, c.first_name, c.last_name, c.phone, c.email, r.room_number, r.check_in_date, r.check_out_date, r.reservation_status\n"
+        String logView = "CREATE VIEW IF NOT EXISTS log AS\n"
+        + "SELECT c.customer_id, c.last_name, r.room_number, r.reservation_status\n"
         + "FROM customer c, reservation r\n"
         + "INNER JOIN reservation ON c.customer_id = r.customer_id;";
-        dbManager.executeStatement(checkInLogView);
+        dbManager.executeStatement(logView);
+
+        String serviceLog = "CREATE VIEW IF NOT EXISTS service_log AS\n"
+        + "SELECT l.customer_id, l.last_name, l.room_number, l.reservation_status, service.type, service.urgency\n"
+        + "FROM log l\n"
+        + "LEFT JOIN service ON service.room_number = l.room_number;";
+        dbManager.executeStatement(serviceLog);
+
+
+        // Service service = new Service(101, "Towel", "Urgent");
+        // Service service2 = new Service(101, "Key Card", "Urgent");
+
 
         // long currentTimestamp = System.currentTimeMillis();
         // System.out.println("The current epoch time is: " + currentTimestamp);

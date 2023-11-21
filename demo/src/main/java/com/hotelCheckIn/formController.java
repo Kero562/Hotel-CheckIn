@@ -338,6 +338,16 @@ public class formController {
 
             alert.showAndWait();
             //
+
+            if (bedLabelAdded) {
+                Service bedService = new Service(roomNumber, "Extra Mattress", BedUrgencyBox.getSelectionModel().getSelectedItem());
+            }
+            if (keyLabelAdded) {
+                Service keyService = new Service(roomNumber, "Digital Key Access", KeyUrgencyBox.getSelectionModel().getSelectedItem());
+            }
+            if (newCheckOutAdded) {
+                Service checkOutService = new Service(roomNumber, "CheckOut Date", "Normal");
+            }
         }
     }
 

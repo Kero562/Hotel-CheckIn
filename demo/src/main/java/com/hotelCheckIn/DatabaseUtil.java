@@ -58,14 +58,10 @@ public class DatabaseUtil {
 
             // Create a service database with service_id, room_number, type, description, urgency, time_created, service_status, assigned_employee
             String service = "CREATE TABLE IF NOT EXISTS service (\n"
-            + " service_id text PRIMARY KEY,\n"
+            + " service_id integer PRIMARY KEY,\n"
             + " room_number integer NOT NULL,\n"
             + " type text NOT NULL,\n"
-            + " description text NOT NULL,\n"
             + " urgency text NOT NULL,\n"
-            + " time_created text NOT NULL,\n"
-            + " service_status text NOT NULL,\n"
-            + " assigned_employee text NOT NULL,\n"
             + " FOREIGN KEY (room_number) REFERENCES rooms (room_number)\n"
             + ");";
             createTable("service", service);
