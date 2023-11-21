@@ -98,11 +98,11 @@ public class requestsController {
                 Button rejectButton = new Button("Reject");
 
                 acptButton.setOnAction(e -> {
-                    
+                    dbManager.setServiceStatus(Integer.parseInt(split[2]), "Accepted");
                 });
 
                 rejectButton.setOnAction(e -> {
-                    
+                    dbManager.setServiceStatus(Integer.parseInt(split[2]), "Rejected");
                 });
 
                 checkInBox.getChildren().add(acptButton);

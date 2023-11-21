@@ -445,9 +445,9 @@ public class DatabaseUtil {
         }
     }
 
-    public void setServiceStatus(int serviceId, String status) {
+    public void setServiceStatus(int roomNumber, String status) {
         // Update the service status in the service table
-        String sql = "UPDATE service SET status = '" + status + "' WHERE service_id = '" + serviceId + "'";
+        String sql = "UPDATE service SET status = '" + status + "' WHERE room_number = '" + roomNumber + "'";
         try {
             Connection conn = this.connect();
             conn.createStatement().execute(sql);
