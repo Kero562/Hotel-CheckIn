@@ -128,6 +128,9 @@ public class formController {
     ChoiceBox<String> BedUrgencyBox;
     ChoiceBox<String> KeyUrgencyBox;
 
+    @FXML
+    private Label servicesLabel;
+
     public void initialize() {
 
         //Set engine and set webView background transparent
@@ -262,6 +265,7 @@ public class formController {
         invalidEmailLabel.setVisible(false);
         invalidNumLabel.setVisible(false);
         countryCodeLabel.setVisible(false);
+        servicesLabel.setVisible(false);
         //
 
         //When form is complete, make the request
@@ -302,6 +306,25 @@ public class formController {
             }
         }
         //
+
+        //Check urgency
+        if (BedUrgencyBox != null)
+        {
+            if (BedUrgencyBox.getSelectionModel().getSelectedItem().equals("Select Urgency"))
+            {
+                servicesLabel.setVisible(true);
+                formComplete = false;
+            }
+        }
+
+        if (KeyUrgencyBox != null)
+        {
+            if (KeyUrgencyBox.getSelectionModel().getSelectedItem().equals("Select Urgency"))
+            {
+                servicesLabel.setVisible(true);
+                formComplete = false;
+            }
+        }
 
         //Form completion
         if (formComplete)
@@ -347,6 +370,11 @@ public class formController {
             }
             if (newCheckOutAdded) {
                 Service checkOutService = new Service(roomNumber, "CheckOut Date", "Normal");
+            }
+
+            if (!bedLabelAdded && !keyLabelAdded && !newCheckOutAdded)
+            {
+                Service service = new Service(roomNumber, "N/A", "N/A");
             }
         }
     }

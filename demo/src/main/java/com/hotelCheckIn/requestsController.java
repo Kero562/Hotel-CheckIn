@@ -16,9 +16,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -109,14 +107,14 @@ public class requestsController {
                 Button rejectButton = new Button("Reject");
 
                 acptButton.setOnAction(e -> {
-                    //dbManager.setServiceStatus(Integer.parseInt(split[2]), "Accepted");
+                    dbManager.setServiceStatus(Integer.parseInt(split[2]), "Accepted");
                     Dialog<String> dialog = new Dialog<>();
                     dialog.setTitle("Enter Text");
                     dialog.setHeaderText(null);
 
                     TextArea textArea = new TextArea();
-                    textArea.setPrefColumnCount(20);
-                    textArea.setPrefRowCount(5);
+                    textArea.setPrefColumnCount(40);
+                    textArea.setPrefRowCount(10);
                     textArea.setWrapText(true);
 
                     dialog.getDialogPane().setContent(textArea);
@@ -135,12 +133,44 @@ public class requestsController {
                     Optional<String> result = dialog.showAndWait();
 
                     result.ifPresent(text -> {
-                        System.out.println(text);
+                        sendEmail(split[7], text, "Check In Approved");
                     });
+
+                    requestsBox.getChildren().remove(checkInBox);
                 });
 
                 rejectButton.setOnAction(e -> {
-                    //dbManager.setServiceStatus(Integer.parseInt(split[2]), "Rejected");
+                    dbManager.setServiceStatus(Integer.parseInt(split[2]), "Rejected");
+
+                    Dialog<String> dialog = new Dialog<>();
+                    dialog.setTitle("Enter Text");
+                    dialog.setHeaderText(null);
+
+                    TextArea textArea = new TextArea();
+                    textArea.setPrefColumnCount(40);
+                    textArea.setPrefRowCount(10);
+                    textArea.setWrapText(true);
+
+                    dialog.getDialogPane().setContent(textArea);
+
+                    ButtonType confirmButtonType = new ButtonType("OK", ButtonData.OK_DONE);
+                    dialog.getDialogPane().getButtonTypes().addAll(confirmButtonType, ButtonType.CANCEL);
+
+                    dialog.setResultConverter(buttonType -> {
+                        if (buttonType == confirmButtonType)
+                        {
+                            return textArea.getText();
+                        }
+                        return null;
+                    });
+
+                    Optional<String> result = dialog.showAndWait();
+
+                    result.ifPresent(text -> {
+                        sendEmail(split[7], text, "Check In Disapproved");
+                    });
+
+                    requestsBox.getChildren().remove(checkInBox);
                 });
 
                 checkInBox.getChildren().add(acptButton);
@@ -159,14 +189,14 @@ public class requestsController {
         else return "-";
     }
 
-    public void sendEmail()
+    public void sendEmail(String theRecipient, String theMessage, String checkInDecision)
     {
         // email credentials and message data
         final String username = "4dragonsresort@gmail.com";
         final String password = "kbbd dmgx cqmg zewf";
-        final String recipient = "kerolosharby@gmail.com";
-        String subject = "Hello world!";
-        String body = "This is a test message from Java mail. If you see this then it's working.";
+        final String recipient = theRecipient;
+        String subject = checkInDecision;
+        String body = theMessage;
 
         // add mail server/encryption properties
         Properties properties = new Properties();
