@@ -344,7 +344,7 @@ public class formController {
 
             if (roomField.isDisabled())
             {
-                customer.getReservations().get(0).setReservationStatus("Changed");
+                //customer.getReservations().get(0).setReservationStatus("Changed");
             } else {
                 customer.getReservations().get(0).setReservationStatus("Checked In");
             }
