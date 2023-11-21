@@ -259,7 +259,13 @@ public class controller {
         if (!dbManager.isValidLogin(textField1.getText(), textField2.getText()))
         {
             String reservationStatus = dbManager.reservationStatus(Integer.parseInt(textField2.getText()));
-            if (reservationStatus.equals("Checked In")) {
+
+            if (reservationStatus == null)
+            {
+                completionText.setStyle("-fx-text-fill: red;");
+                completionText.setText("Loading Failed - No booking found");
+            }
+            else if (reservationStatus.equals("Checked In")) {
                 completionText.setStyle("-fx-text-fill: red;");
                 completionText.setText("Loading Failed - Already Checked In");
             }

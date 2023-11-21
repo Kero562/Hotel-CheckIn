@@ -249,6 +249,13 @@ public class DatabaseUtil {
             ResultSet reservationTable = conn.createStatement().executeQuery(reservationQuery);
 
             String reservationStatus = reservationTable.getString("reservation_status");
+
+            if (reservationStatus == null)
+            {
+                conn.close();
+                return null;
+            }
+
             if (reservationStatus.equals("Pending")) {
                 System.out.println("[Info] Customer has a pending reservation.");
                 conn.close();
