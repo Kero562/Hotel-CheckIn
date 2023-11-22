@@ -8,9 +8,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="858.0" prefWidth="1225.0" styleClass="admin" stylesheets="@style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hotelCheckIn.requestsController">
    <children>
-      <Label alignment="CENTER" layoutX="544.0" layoutY="27.0" prefHeight="50.0" prefWidth="163.0" text="Requests" textAlignment="CENTER" textFill="#2f3c5e">
+      <Label alignment="CENTER" layoutX="405.0" layoutY="26.0" prefHeight="61.0" prefWidth="414.0" styleClass="formLabel" stylesheets="@style.css" text="* Requests *" textAlignment="CENTER" textFill="#0fdb42">
          <font>
-            <Font name="Cookie-Regular" size="37.0" />
+            <Font name="Cookie-Regular" size="45.0" />
          </font>
       </Label>
       <ScrollPane fx:id="scrollPane" layoutX="-1.0" layoutY="119.0" prefHeight="704.0" prefWidth="1225.0">

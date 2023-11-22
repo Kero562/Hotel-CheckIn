@@ -294,6 +294,7 @@ public class controller {
 
             scene.setCursor(Cursor.WAIT);
             checkInButton.setDisable(true);
+            completionText.setStyle("-fx-text-fill: green;");
             completionText.setText("Loaded Successfully");
             
             Duration delay = Duration.seconds(2);
