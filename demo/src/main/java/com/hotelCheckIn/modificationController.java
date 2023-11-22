@@ -198,18 +198,33 @@ public class modificationController {
         if (!mattressView.getBoundsInParent().contains(event.getX(), event.getY())) {
             Image initialImage = new Image("com/hotelCheckIn/images/mattress.png");
             mattressView.setImage(initialImage);
+
+            //Disable mattress buttons
+            for (int i = 0; i < mattressButtons.length; i++)
+            {
+                mattressButtons[i].setVisible(false);
+            }
         }
 
         if (!keyView.getBoundsInParent().contains(event.getX(), event.getY()))
         {
             Image initialImage = new Image("com/hotelCheckIn/images/digitalKey.png");
             keyView.setImage(initialImage);
+
+            //Disable digital key access buttons
+            for (int i = 0; i < keyButtons.length; i++)
+            {
+                keyButtons[i].setVisible(false);
+            }
         }
 
         if (!checkOutView.getBoundsInParent().contains(event.getX(), event.getY()))
         {
             Image initialImage = new Image("com/hotelCheckIn/images/checkout.png");
             checkOutView.setImage(initialImage);
+
+            //Disable date picker
+            dateModifier.setVisible(false);
         }
     }
 }
